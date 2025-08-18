@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - ViagemTop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        <span class="font-bold text-xl text-blue-600">ViagemTop</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
+                    <a href="pacotes.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
+                    <a href="cadastro.html" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="nav-cadastro">Cadastro</a>
+                    <a href="reserva.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-reserva">Reserva</a>
+                    <a href="historico-reservas.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-historico">Minhas Reservas</a>
+                    
+                    <!-- Login/User Menu -->
+                    <div id="auth-section">
+                        <a href="login.html" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                            </svg>
+                            Entrar
+                        </a>
+                        
+                        <div class="hidden relative" id="user-menu">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
+                                    JS
+                                </div>
+                                <button class="text-red-600 hover:text-red-800" onclick="logout()" title="Sair">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="p-2 rounded-md text-gray-600 hover:text-blue-600" id="mobile-menu-btn">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
+                <a href="pacotes.html" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
+                <a href="cadastro.html" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="mobile-nav-cadastro">Cadastro</a>
+                <a href="reserva.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-reserva">Reserva</a>
+                <a href="historico-reservas.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-historico">Minhas Reservas</a>
+                
+                <div class="border-t pt-2 mt-2" id="mobile-auth-section">
+                    <a href="login.html" class="block px-3 py-2 rounded-md bg-blue-600 text-white" id="mobile-login-btn">Entrar</a>
+                    
+                    <div class="hidden space-y-2" id="mobile-user-menu">
+                        <div class="px-3 py-2">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm" id="mobile-user-avatar">JS</div>
+                                <div>
+                                    <p class="text-sm font-medium" id="mobile-user-name">João Silva</p>
+                                    <p class="text-xs text-gray-600" id="mobile-user-email">joao@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full text-left px-3 py-2 rounded-md text-red-600 hover:bg-red-50" onclick="logout()">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="py-8 px-4">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-8">
+                <svg class="mx-auto h-12 w-12 text-blue-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                </svg>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Cadastre-se</h1>
+                <p class="text-gray-600 text-lg">
+                    Junte-se à nossa família de viajantes e tenha acesso a ofertas exclusivas
+                </p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="flex items-center gap-2 mb-6">
+                    <svg class="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <h2 class="text-xl font-medium">Informações Pessoais</h2>
+                </div>
+
+                <form id="signup-form" class="space-y-6">
+                    <!-- Nome e CPF -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo *</label>
+                            <input type="text" id="fullName" name="fullName" required
+                                   class="form-input" placeholder="Seu nome completo">
+                        </div>
+
+                        <div>
+                            <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF *</label>
+                            <input type="text" id="cpf" name="cpf" required
+                                   class="form-input" placeholder="000.000.000-00" maxlength="14">
+                        </div>
+                    </div>
+
+                    <!-- Data de nascimento e Telefone -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="birthDate" class="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento *</label>
+                            <input type="date" id="birthDate" name="birthDate" required class="form-input">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Telefone *</label>
+                            <input type="text" id="phone" name="phone" required
+                                   class="form-input" placeholder="(11) 99999-9999" maxlength="15">
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            Email *
+                        </label>
+                        <input type="email" id="email" name="email" required
+                               class="form-input" placeholder="seu@email.com">
+                    </div>
+
+                    <!-- Senhas -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="password" class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-1">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                                Senha *
+                            </label>
+                            <div class="relative">
+                                <input type="password" id="password" name="password" required
+                                       class="form-input pr-10" placeholder="Sua senha">
+                                <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" id="toggle-password">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="eye-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    <svg class="h-4 w-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="eye-off-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="password-strength mt-1" id="password-strength"></div>
+                            <p class="text-xs text-gray-500 mt-1">Mínimo 8 caracteres, incluindo maiúscula, minúscula e número</p>
+                        </div>
+
+                        <div>
+                            <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Senha *</label>
+                            <div class="relative">
+                                <input type="password" id="confirmPassword" name="confirmPassword" required
+                                       class="form-input pr-10" placeholder="Confirme sua senha">
+                                <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" id="toggle-confirm-password">
+                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="confirm-eye-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    <svg class="h-4 w-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="confirm-eye-off-icon">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Termos -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="acceptTerms" name="acceptTerms" required
+                               class="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="acceptTerms" class="text-sm text-gray-700">
+                            Aceito os <a href="#" class="text-blue-600 underline hover:text-blue-800">termos de uso</a> 
+                            e <a href="#" class="text-blue-600 underline hover:text-blue-800">política de privacidade</a> *
+                        </label>
+                    </div>
+
+                    <button type="submit" id="signup-submit" class="w-full btn-primary text-lg">
+                        Finalizar Cadastro
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-sm text-gray-600">
+                        Já tem uma conta?
+                        <a href="login.html" class="text-blue-600 hover:text-blue-800 underline">Faça login aqui</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        <span class="font-bold text-lg">ViagemTop</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Sua agência de viagens de confiança há mais de 15 anos.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Contato</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>📞 (11) 1234-5678</p>
+                        <p>📧 contato@viagemtop.com.br</p>
+                        <p>📍 São Paulo, SP</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Redes Sociais</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>Facebook | Instagram | Twitter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ViagemTop. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

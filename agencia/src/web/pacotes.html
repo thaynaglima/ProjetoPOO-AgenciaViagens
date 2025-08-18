@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacotes de Viagem - ViagemTop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        <span class="font-bold text-xl text-blue-600">ViagemTop</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
+                    <a href="pacotes.html" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50">Pacotes</a>
+                    <a href="cadastro.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
+                    <a href="reserva.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-reserva">Reserva</a>
+                    <a href="historico-reservas.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-historico">Minhas Reservas</a>
+                    <a href="perfil.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-perfil">Meu Perfil</a>
+                    
+                    <!-- Login/User Menu -->
+                    <div id="auth-section">
+                        <a href="login.html" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                            </svg>
+                            Entrar
+                        </a>
+                        
+                        <div class="hidden relative" id="user-menu">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
+                                    JS
+                                </div>
+                                <button class="text-red-600 hover:text-red-800" onclick="logout()" title="Sair">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="p-2 rounded-md text-gray-600 hover:text-blue-600" id="mobile-menu-btn">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
+                <a href="pacotes.html" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50">Pacotes</a>
+                <a href="cadastro.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-cadastro">Cadastro</a>
+                <a href="reserva.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-reserva">Reserva</a>
+                <a href="historico-reservas.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-historico">Minhas Reservas</a>
+                <a href="perfil.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-perfil">Meu Perfil</a>
+                
+                <div class="border-t pt-2 mt-2" id="mobile-auth-section">
+                    <a href="login.html" class="block px-3 py-2 rounded-md bg-blue-600 text-white" id="mobile-login-btn">Entrar</a>
+                    
+                    <div class="hidden space-y-2" id="mobile-user-menu">
+                        <div class="px-3 py-2">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm" id="mobile-user-avatar">JS</div>
+                                <div>
+                                    <p class="text-sm font-medium" id="mobile-user-name">João Silva</p>
+                                    <p class="text-xs text-gray-600" id="mobile-user-email">joao@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full text-left px-3 py-2 rounded-md text-red-600 hover:bg-red-50" onclick="logout()">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Message -->
+    <div class="bg-blue-50 py-4 px-4 hidden" id="welcome-message">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-blue-100 border border-blue-200 rounded-md p-4">
+                <p class="text-blue-800" id="welcome-text">
+                    Olá, <strong id="welcome-name">Usuário</strong>! Explore nossos pacotes e encontre sua próxima aventura.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="py-8 px-4">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">Nossos Pacotes de Viagem</h1>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Descubra destinos incríveis e viva experiências inesquecíveis com nossos pacotes cuidadosamente selecionados.
+                </p>
+            </div>
+
+            <!-- Filters -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+                    <div class="relative">
+                        <svg class="absolute left-3 top-3 h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <input type="text" placeholder="Buscar destinos..." 
+                               class="form-input pl-10" id="search-packages">
+                    </div>
+
+                    <select class="form-input" id="category-filter">
+                        <option value="all">Todas as categorias</option>
+                        <option value="nacional">Nacional</option>
+                        <option value="internacional">Internacional</option>
+                    </select>
+
+                    <select class="form-input" id="price-filter">
+                        <option value="all">Todos os preços</option>
+                        <option value="budget">Até R$ 2.000</option>
+                        <option value="mid">R$ 2.000 - R$ 5.000</option>
+                        <option value="premium">Acima de R$ 5.000</option>
+                    </select>
+
+                    <select class="form-input" id="sort-filter">
+                        <option value="name">Nome A-Z</option>
+                        <option value="price-low">Menor preço</option>
+                        <option value="price-high">Maior preço</option>
+                        <option value="rating">Melhor avaliação</option>
+                    </select>
+
+                    <button class="btn-secondary" onclick="clearFilters()">
+                        Limpar Filtros
+                    </button>
+                </div>
+
+                <div class="flex items-center gap-2 text-sm text-gray-600">
+                    <span id="packages-count">0</span> pacote(s) encontrado(s)
+                </div>
+            </div>
+
+            <!-- Package Grid -->
+            <div id="packages-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Packages will be inserted here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="text-center py-12 hidden" id="empty-packages">
+                <svg class="h-12 w-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <p class="text-gray-600 mb-4">Não encontramos pacotes que correspondam aos seus critérios de busca.</p>
+                <button onclick="clearFilters()" class="btn-primary">Limpar Filtros</button>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="mt-16 text-center bg-blue-50 rounded-lg p-8">
+                <h2 class="text-2xl font-bold mb-4">Não encontrou o que procurava?</h2>
+                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+                    Nossa equipe de especialistas pode criar um pacote personalizado especialmente para você.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="btn-primary">Fale Conosco</button>
+                    <button class="btn-secondary">WhatsApp: (11) 99999-9999</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        <span class="font-bold text-lg">ViagemTop</span>
+                    </div>
+                    <p class="text-gray-400">Sua agência de viagens de confiança há mais de 15 anos.</p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Contato</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>📞 (11) 1234-5678</p>
+                        <p>📧 contato@viagemtop.com.br</p>
+                        <p>📍 São Paulo, SP</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Redes Sociais</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>Facebook | Instagram | Twitter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ViagemTop. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
