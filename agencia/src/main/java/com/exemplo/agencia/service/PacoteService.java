@@ -37,5 +37,25 @@ public class PacoteService {
                 .filter(p -> p instanceof PacoteInternacional)
                 .toList();
     }
-
+     public List<PacoteViagem> getPrecosAte2k(){
+        return banco.getPacotes().stream().filter(p -> p.getPreco().compareTo (new BigDecimal("2000")) < 0).toList();
+    }
+    public List<PacoteViagem> getPrecosAte5k(){
+        return banco.getPacotes().stream().filter( p -> p.getPreco().compareTo(new BigDecimal("2000")) >= 0 && 
+                                                        p.getPreco().compareTo(new BigDecimal("5000")) <= 0).toList();
+    }
+    public List<PacoteViagem> getPrecosMaior5k(){
+        return banco.getPacotes().stream().filter(p -> p.getPreco().compareTo (new BigDecimal("5000")) > 0).toList();
+    }
+    public List<PacoteViagem> getOrdenarAtoZ() {
+        return banco.getPacotes().stream()
+            .sorted(Comparator.comparing(PacoteViagem::getPais))
+            .toList();
+    }
+    public List<PacoteViagem> getMenorPreco(){
+        return banco.getPacotes().stream().sorted(Comparator.comparing(PacoteViagem::getPreco)).toList();
+    }
+    public List<PacoteViagem> getMaiorPreco(){
+        return banco.getPacotes().stream().sorted(Comparator.comparing(PacoteViagem::getPreco).reversed()).toList();
+    }
 }
