@@ -18,7 +18,6 @@ public class PacoteController {
         this.pacoteService = pacoteService;
     }
 
-
     @GetMapping("/pacotes")
     public String listarPacotes(Model model) {
         List<PacoteViagem> pacotes = pacoteService.getPacotes();
@@ -26,12 +25,25 @@ public class PacoteController {
         return "pacotes"; // procura o pacotes.html em /src/webapp/templates/
     }
 
-    @GetMapping("/pacotes/destaques")
+    @GetMapping("/")
     public String listarPacotesDestaque(Model model) {
         List<PacoteViagem> pacotesLimitados = pacoteService.getPacotesLimitados(3);
         System.out.println(pacotesLimitados);
         model.addAttribute("pacotes", pacotesLimitados);
         return "index"; // -> index.html
     }
-}
 
+        @GetMapping("/pacotesNacionais")
+        public String filtrarPacotesNacionais(Model model) {
+            List<PacoteViagem> nacionais  = pacoteService.getPacotesNacionais();
+            model.addAttribute("pacotes", nacionais);
+            return "pacotes"; 
+    }
+
+    @GetMapping("/pacotesInternacionais")
+    public String filtrarPacotesInternacionais(Model model){
+        List<PacoteViagem> intermacionais = pacoteService.getPacotesInternacionais();
+        model.addAttribute("pacotes", intermacionais);
+        return "pacotes";
+    }
+}

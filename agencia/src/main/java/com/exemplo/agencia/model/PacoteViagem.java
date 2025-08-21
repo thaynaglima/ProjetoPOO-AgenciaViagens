@@ -2,7 +2,7 @@ package com.exemplo.agencia.model;
 
 import java.math.BigDecimal;
 
-public class PacoteViagem{
+public abstract	class PacoteViagem{
 	private String id;
 	private String pais;
 	private String clima;
