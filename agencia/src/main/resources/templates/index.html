@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViagemTop - Sua Agência de Viagens</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen bg-white">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2">
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        <span class="font-bold text-xl text-blue-600">ViagemTop</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50">Início</a>
+                    <a href="pacotes.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
+                    <a href="cadastro.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-cadastro">Cadastro</a>
+                    <a href="reserva.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-reserva">Reserva</a>
+                    <a href="historico-reservas.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-historico">Minhas Reservas</a>
+                    <a href="perfil.html" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-perfil">Meu Perfil</a>
+                    
+                    <!-- Login/User Menu -->
+                    <div id="auth-section">
+                        <a href="login.html" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                            </svg>
+                            Entrar
+                        </a>
+                        
+                        <div class="hidden relative" id="user-menu">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
+                                    JS
+                                </div>
+                                <button class="text-red-600 hover:text-red-800" onclick="logout()" title="Sair">
+                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="p-2 rounded-md text-gray-600 hover:text-blue-600" id="mobile-menu-btn">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50">Início</a>
+                <a href="pacotes.html" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
+                <a href="cadastro.html" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-cadastro">Cadastro</a>
+                <a href="reserva.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-reserva">Reserva</a>
+                <a href="historico-reservas.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-historico">Minhas Reservas</a>
+                <a href="perfil.html" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-perfil">Meu Perfil</a>
+                
+                <div class="border-t pt-2 mt-2" id="mobile-auth-section">
+                    <a href="login.html" class="block px-3 py-2 rounded-md bg-blue-600 text-white" id="mobile-login-btn">Entrar</a>
+                    
+                    <div class="hidden space-y-2" id="mobile-user-menu">
+                        <div class="px-3 py-2">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm" id="mobile-user-avatar">JS</div>
+                                <div>
+                                    <p class="text-sm font-medium" id="mobile-user-name">João Silva</p>
+                                    <p class="text-xs text-gray-600" id="mobile-user-email">joao@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full text-left px-3 py-2 rounded-md text-red-600 hover:bg-red-50" onclick="logout()">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Welcome Message for Logged Users -->
+    <div class="bg-blue-50 py-4 px-4 hidden" id="welcome-message">
+        <div class="max-w-7xl mx-auto">
+            <div class="bg-blue-100 border border-blue-200 rounded-md p-4">
+                <p class="text-blue-800" id="welcome-text">
+                    Olá, <strong id="welcome-name">Usuário</strong>! Que bom ter você aqui!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen bg-gradient-to-r from-blue-600 to-purple-700 flex items-center justify-center">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Descubra o Mundo com a <span class="text-yellow-400">ViagemTop</span>
+            </h1>
+            <p class="text-lg md:text-xl mb-8 text-gray-200">
+                Há mais de 15 anos realizando sonhos e criando memórias inesquecíveis.
+                Pacotes personalizados para todos os destinos!
+            </p>
+            <div class="space-x-4">
+                <a href="pacotes.html" class="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-lg text-lg font-medium transition-colors">
+                    Ver Pacotes
+                </a>
+                <a href="cadastro.html" class="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-lg text-lg font-medium transition-colors" id="hero-cadastro">
+                    Cadastre-se
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Por que escolher a ViagemTop?</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Somos especialistas em transformar seus sonhos de viagem em realidade
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6 bg-white rounded-lg shadow-lg">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-2">Destinos Incríveis</h3>
+                    <p class="text-gray-600 text-sm">Mais de 100 destinos nacionais e internacionais</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-lg shadow-lg">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-2">50.000+ Clientes</h3>
+                    <p class="text-gray-600 text-sm">Clientes satisfeitos em todo o Brasil</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-lg shadow-lg">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-2">Melhor Avaliação</h3>
+                    <p class="text-gray-600 text-sm">Nota 4.9/5 em todas as plataformas</p>
+                </div>
+
+                <div class="text-center p-6 bg-white rounded-lg shadow-lg">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 7v2m0 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m4 0H6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-medium mb-2">15 Anos</h3>
+                    <p class="text-gray-600 text-sm">De experiência no mercado de turismo</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations -->
+    <section class="py-20 px-4 bg-gray-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Destinos Populares</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+                    Conheça alguns dos nossos destinos mais procurados
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div th:each="pacote : ${pacotes}" class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="relative h-48">
+                        <img th:src="${pacote.imagemUrl}" 
+                            th:alt="${pacote.pais}" 
+                            class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <h3 class="text-xl font-medium mb-1" th:text="${pacote.pais}">País</h3>
+                            <p class="text-sm text-gray-200" th:text="'A partir de R$ ' + ${#numbers.formatDecimal(pacote.preco, 2, 'POINT')}">Preço</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="pacotes.html" class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors">
+                    Ver Todos os Pacotes
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-4 bg-blue-600 text-white">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Pronto para sua próxima aventura?</h2>
+            <p class="text-lg mb-8 text-blue-100">
+                Entre em contato conosco e planeje a viagem dos seus sonhos com quem entende do assunto
+            </p>
+            <div class="space-x-4">
+                <a href="reserva.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-gray-100 transition-colors" id="cta-reserva">
+                    Fazer Reserva
+                </a>
+                <a href="cadastro.html" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-lg text-lg font-medium transition-colors" id="cta-cadastro">
+                    Cadastrar-se
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                        <span class="font-bold text-lg">ViagemTop</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Sua agência de viagens de confiança há mais de 15 anos.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Contato</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>📞 (11) 1234-5678</p>
+                        <p>📧 contato@viagemtop.com.br</p>
+                        <p>📍 São Paulo, SP</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-4">Redes Sociais</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>Facebook | Instagram | Twitter</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ViagemTop. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

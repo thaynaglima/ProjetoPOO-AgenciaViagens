@@ -1,0 +1,50 @@
+PKG001;África do Sul;Temperado;Viagem cultural com guias locais;9492.74
+PKG002;África do Sul;Mediterrâneo;Tour histórico pelas principais cidades;7938.77
+PKG003;EUA;Árido;Pacote de luxo com tudo incluso;11987.36
+PKG004;África do Sul;Polar;Pacote romântico para casais;9701.32
+PKG005;Alemanha;Temperado;Pacote de luxo com tudo incluso;11863.98
+PKG006;EUA;Tropical;Roteiro familiar com atividades para crianças;4912.40
+PKG007;Japão;Tropical;Pacote de aventura para explorar a natureza;7722.60
+PKG008;Egito;Polar;Viagem cultural com guias locais;6359.49
+PKG009;Alemanha;Mediterrâneo;Pacote relaxante com spa incluso;3830.41
+PKG010;Canadá;Árido;Pacote econômico para mochileiros;6645.99
+PKG011;Itália;Polar;Pacote relaxante com spa incluso;1583.49
+PKG012;Brasil;Temperado;Roteiro gastronômico exclusivo;9154.52
+PKG013;Egito;Tropical;Tour histórico pelas principais cidades;10031.47
+PKG014;Itália;Árido;Pacote relaxante com spa incluso;3750.72
+PKG015;Alemanha;Mediterrâneo;Pacote de aventura para explorar a natureza;13408.84
+PKG016;Egito;Árido;Pacote de aventura para explorar a natureza;12524.56
+PKG017;Canadá;Mediterrâneo;Viagem cultural com guias locais;2536.32
+PKG018;Egito;Temperado;Pacote de aventura para explorar a natureza;11094.46
+PKG019;África do Sul;Tropical;Roteiro gastronômico exclusivo;3076.59
+PKG020;França;Tropical;Tour histórico pelas principais cidades;9445.08
+PKG021;Itália;Mediterrâneo;Roteiro familiar com atividades para crianças;9269.06
+PKG022;Egito;Mediterrâneo;Pacote de aventura para explorar a natureza;6815.51
+PKG023;Brasil;Temperado;Roteiro familiar com atividades para crianças;12587.50
+PKG024;Canadá;Temperado;Tour histórico pelas principais cidades;7512.80
+PKG025;Canadá;Polar;Tour histórico pelas principais cidades;6615.62
+PKG026;Alemanha;Tropical;Roteiro familiar com atividades para crianças;9847.60
+PKG027;França;Polar;Pacote de luxo com tudo incluso;10136.33
+PKG028;Japão;Mediterrâneo;Tour histórico pelas principais cidades;9188.18
+PKG029;Itália;Tropical;Pacote de aventura para explorar a natureza;13710.61
+PKG030;Egito;Tropical;Pacote relaxante com spa incluso;4516.19
+PKG031;Japão;Polar;Pacote completo com hospedagem e passeios;11154.82
+PKG032;França;Polar;Tour histórico pelas principais cidades;9552.12
+PKG033;Brasil;Mediterrâneo;Pacote de aventura para explorar a natureza;14216.13
+PKG034;Egito;Temperado;Pacote de aventura para explorar a natureza;5996.16
+PKG035;Itália;Mediterrâneo;Viagem cultural com guias locais;1892.59
+PKG036;Alemanha;Temperado;Pacote de aventura para explorar a natureza;13907.50
+PKG037;Brasil;Polar;Pacote de aventura para explorar a natureza;5788.20
+PKG038;EUA;Mediterrâneo;Pacote completo com hospedagem e passeios;7799.97
+PKG039;Brasil;Temperado;Viagem cultural com guias locais;11961.55
+PKG040;México;Temperado;Pacote de luxo com tudo incluso;3942.47
+PKG041;México;Mediterrâneo;Roteiro familiar com atividades para crianças;5059.07
+PKG042;África do Sul;Tropical;Pacote de aventura para explorar a natureza;5404.37
+PKG043;França;Temperado;Viagem cultural com guias locais;11141.03
+PKG044;Japão;Árido;Pacote romântico para casais;4171.14
+PKG045;EUA;Árido;Roteiro familiar com atividades para crianças;3469.65
+PKG046;França;Temperado;Tour histórico pelas principais cidades;9559.70
+PKG047;Alemanha;Mediterrâneo;Pacote de luxo com tudo incluso;10590.58
+PKG048;África do Sul;Tropical;Pacote romântico para casais;12600.18
+PKG049;Alemanha;Polar;Viagem cultural com guias locais;5658.53
+PKG050;Japão;Tropical;Tour histórico pelas principais cidades;14074.79
