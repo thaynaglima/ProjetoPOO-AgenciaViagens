@@ -43,4 +43,16 @@ public class ArquivoUtils {
             }
         }
     }
+    // Acrescenta uma nova linha ao arquivo
+    public static void adicionarLinha(String nomeArquivo, String[] dados) throws IOException{
+        Path path = Paths.get(caminhoBase + nomeArquivo);
+
+        try(BufferedWriter bw = Files.newBufferedWriter(path,StandardCharsets.UTF_8, 
+                                                        StandardOpenOption.CREATE, 
+                                                        StandardOpenOption.APPEND)){
+            bw.write(String.join(";",dados));
+            bw.newLine();
+        }
+    }
+
 }

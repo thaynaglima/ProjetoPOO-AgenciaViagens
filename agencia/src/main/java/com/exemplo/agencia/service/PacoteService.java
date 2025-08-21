@@ -10,30 +10,30 @@ import com.exemplo.agencia.model.PacoteViagem;
 
 @Service
 public class PacoteService {
-    private final BancoDeDadosSimulado banco;
+    private final BancoDeDadosSimulado bancoPacote;
 
     public PacoteService() {
-        this.banco = new BancoDeDadosSimulado();
+        this.bancoPacote = new BancoDeDadosSimulado();
     }
 
     public List<PacoteViagem> getPacotes() {
-        return banco.getPacotes();
+        return bancoPacote.getPacotes();
     }
 
     public List<PacoteViagem> getPacotesLimitados(int quantidade) {
-        return banco.getPacotes().stream()
+        return bancoPacote.getPacotes().stream()
                 .limit(quantidade)
                 .toList();
     }
 
     public List<PacoteViagem> getPacotesNacionais() {
-        return banco.getPacotes().stream()
+        return bancoPacote.getPacotes().stream()
                 .filter(p -> p instanceof PacoteNacional)
                 .toList();
     }
 
     public List<PacoteViagem> getPacotesInternacionais() {
-        return banco.getPacotes().stream()
+        return bancoPacote.getPacotes().stream()
                 .filter(p -> p instanceof PacoteInternacional)
                 .toList();
     }
