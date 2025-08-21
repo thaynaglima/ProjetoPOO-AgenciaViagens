@@ -46,4 +46,45 @@ public class PacoteController {
         model.addAttribute("pacotes", intermacionais);
         return "pacotes";
     }
+    @GetMapping("/pacotesAbaixo2k")
+    public String filtrarPacotesAbaixo2k(Model model){
+        List<PacoteViagem> abaixo2k = pacoteService.getPrecosAte2k();
+        model.addAttribute("pacotes", abaixo2k);
+        return "pacotes";
+    }
+
+    @GetMapping("/pacotesEntre2kE5k")
+    public String filtrarPacotesEntre2kE5k(Model model){
+        List<PacoteViagem> entre2kE5k = pacoteService.getPrecosAte2k();
+        model.addAttribute("pacotes", entre2kE5k);
+        return "pacotes";
+    }
+
+    @GetMapping("/pacotesAcima5k")
+    public String filtrarPacotesAcima5k(Model model){
+        List<PacoteViagem> acima5k = pacoteService.getPrecosAte2k();
+        model.addAttribute("pacotes", acima5k);
+        return "pacotes";
+    }
+
+    @GetMapping("/ordemAtoZ")
+    public String filtrarAtoZ (Model model){
+        List<PacoteViagem> filterAtoZ = pacoteService.getOrdenarAtoZ();
+        model.addAttribute("pacotes", filterAtoZ);
+        return "pacotes";
+    }
+
+ @GetMapping("/ordemPrecoMenorPMaior")
+    public String filtrarPrecoMenorpMaior (Model model){
+        List<PacoteViagem> menorPmaior = pacoteService.getMenorPreco();
+        model.addAttribute("pacotes", menorPmaior);
+        return "pacotes";
+    }
+
+    @GetMapping("/ordemPreco")
+    public String filtrarPrecoMaiorpMenor (Model model){
+        List<PacoteViagem> filterPrice = pacoteService.getMenorPreco();
+        model.addAttribute("pacotes", filterPrice);
+        return "pacotes";
+    }
 }
