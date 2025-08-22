@@ -10,6 +10,7 @@ import com.exemplo.agencia.model.Cliente;
 @Service
 public class ClienteService {
   private final BancoDeDadosSimulado bancoCliente;
+  private Cliente clienteLogado;
 
   public ClienteService() {
     this.bancoCliente = new BancoDeDadosSimulado();
@@ -36,10 +37,25 @@ public class ClienteService {
   }
 
   public boolean autenticar(String email, String senha) {
-    return bancoCliente.getClientes()
-            .stream()
-            .anyMatch(c -> c.getEmail().equals(email) && c.getSenha().equals(senha));
+    Cliente encontrado = bancoCliente.getClientes()
+                .stream()
+                .filter(c -> c.getEmail().equals(email) && c.getSenha().equals(senha))
+                .findFirst()
+                .orElse(null);
+
+        if (encontrado != null) {
+            this.clienteLogado = encontrado;
+            return true;
+        }
+        return false;
   }
+
+   public Cliente getClienteLogado() {
+        if (clienteLogado == null) {
+            throw new IllegalStateException("Nenhum cliente está logado no momento!");
+        }
+        return clienteLogado;
+    }
 
   public Cliente buscarPorCpf(String cpf) {
     // TODO Auto-generated method stub
