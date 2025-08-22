@@ -70,10 +70,19 @@ public class PacoteService {
                 .toList();
     }
 
-    public PacoteViagem buscarPorId(String pacoteId) {
+    public PacoteViagem getBuscarPorId(String pacoteId) {
         return bancoPacote.getPacotes().stream()
                 .filter(p -> p.getId().equals(pacoteId))
                 .findFirst()
                 .orElse(null); // se não achar, retorna null
     }
+
+    //filtro de pesquisar por nome
+    public List<PacoteViagem> getPesquisarNome(String nome){
+        return bancoPacote.getPacotes().stream()
+                .filter(p -> p.getPais().toLowerCase().contains(nome.toLowerCase()))
+                .toList();
+    }
+
+    
 }
