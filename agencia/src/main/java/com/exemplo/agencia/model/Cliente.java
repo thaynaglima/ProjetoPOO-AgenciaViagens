@@ -10,6 +10,8 @@ import java.util.Objects;
  */
 public class Cliente {
 
+    public static final String Service = null;
+
     @NotBlank
     private String nome;
 
