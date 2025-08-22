@@ -18,14 +18,21 @@ public class PacoteController {
         this.pacoteService = pacoteService;
     }
 
-    @GetMapping("/pacotes")
+    @GetMapping("/pacotesTodos")
     public String listarPacotes(Model model) {
         List<PacoteViagem> pacotes = pacoteService.getPacotes();
         model.addAttribute("pacotes", pacotes);
         return "pacotes"; // procura o pacotes.html em /src/webapp/templates/
     }
 
-    @GetMapping("/")
+    @GetMapping("/pacotesReserva")
+    public String listarPacotesReserva(Model model) {
+        List<PacoteViagem> pacotes = pacoteService.getPacotes();
+        model.addAttribute("pacotes", pacotes);
+        return "reserva"; // procura o pacotes.html em /src/webapp/templates/
+    }
+
+    @GetMapping("/3pacotes")
     public String listarPacotesDestaque(Model model) {
         List<PacoteViagem> pacotesLimitados = pacoteService.getPacotesLimitados(3);
         System.out.println(pacotesLimitados);

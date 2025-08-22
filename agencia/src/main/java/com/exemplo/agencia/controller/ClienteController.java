@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.exemplo.agencia.model.Cliente;
@@ -52,5 +53,14 @@ public class ClienteController {
             return "Email ou senha inválidos!";
         }
     }
+    
+     //buscar os dados do cliente***
+    @GetMapping("/perfil/{cpf}")
+    public String identificarPerfil(@PathVariable String cpf, Model model){
+        Cliente cliente = clienteService.buscarPorCpf(cpf);
+        model.addAttribute("cliente",cliente );
+        return "perfil";
+    }
 }
+
 

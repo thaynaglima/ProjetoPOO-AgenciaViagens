@@ -69,4 +69,11 @@ public class PacoteService {
         return bancoPacote.getPacotes().stream().sorted(Comparator.comparing(PacoteViagem::getPreco).reversed())
                 .toList();
     }
+
+    public PacoteViagem buscarPorId(String pacoteId) {
+        return bancoPacote.getPacotes().stream()
+                .filter(p -> p.getId().equals(pacoteId))
+                .findFirst()
+                .orElse(null); // se não achar, retorna null
+    }
 }

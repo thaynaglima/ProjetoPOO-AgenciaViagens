@@ -3,8 +3,11 @@ package com.exemplo.agencia.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.exemplo.agencia.model.Cliente;
 
+@Service
 public class ClienteService {
   private final BancoDeDadosSimulado bancoCliente;
 
@@ -36,5 +39,15 @@ public class ClienteService {
     return bancoCliente.getClientes()
             .stream()
             .anyMatch(c -> c.getEmail().equals(email) && c.getSenha().equals(senha));
+  }
+
+  public Cliente buscarPorCpf(String cpf) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'buscarPorCpf'");
+  }
+
+  //buscar por cpf do cliente *
+  public Cliente buscaCpf(String cpf){
+    return bancoCliente.getClientes().stream().filter(c -> c.getCpf().equals(cpf)).findFirst().orElse(null);
   }
 }

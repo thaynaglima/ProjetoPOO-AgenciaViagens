@@ -48,7 +48,9 @@ public class Reserva{
 	public String getPacoteId() {
 		return pacoteId;
 	}
-
+	public void setPacoteId(String pacoteId) {
+		this.pacoteId = pacoteId;
+	}
 	public LocalDate getDataReserva() {
 		return dataReserva;
 	}
