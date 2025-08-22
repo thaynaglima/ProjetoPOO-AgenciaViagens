@@ -11,6 +11,10 @@ import com.exemplo.agencia.model.PacoteInternacional;
 import com.exemplo.agencia.model.PacoteNacional;
 import com.exemplo.agencia.model.PacoteViagem;
 import com.exemplo.agencia.model.Reserva;
+import com.exemplo.agencia.model.PacoteInternacional.Visto;
+import com.exemplo.agencia.model.PacoteNacional.Transporte;
+import com.exemplo.agencia.model.Reserva.FormaPagamento;
+import com.exemplo.agencia.model.Reserva.StatusReserva;
 
 public class BancoDeDadosSimulado {
     List<Cliente> clientes;
@@ -82,10 +86,10 @@ public class BancoDeDadosSimulado {
     public PacoteViagem stringParaPacote(String[] dados) {
         if (dados[1].equals("Brasil"))
             return new PacoteNacional(dados[0], dados[1], dados[2], dados[3],
-                    BigDecimal.valueOf(Double.parseDouble(dados[4])), dados[5], dados[6], dados[7]);
+                    BigDecimal.valueOf(Double.parseDouble(dados[4])), dados[5], Transporte.valueOf(dados[6]), dados[7]);
         else
             return new PacoteInternacional(dados[0], dados[1], dados[2], dados[3],
-                    BigDecimal.valueOf(Double.parseDouble(dados[4])), dados[5], dados[6], dados[7]);
+                    BigDecimal.valueOf(Double.parseDouble(dados[4])), Visto.valueOf(dados[5]), dados[6], dados[7]);
     };
 
     // 🔹 Converte Pacote em String[] para salvar no arquivo
@@ -95,12 +99,12 @@ public class BancoDeDadosSimulado {
                     pacote.getId(), pacote.getPais(),
                     pacote.getClima(), pacote.getDescricao(),
                     pacote.getPreco().toString(), ((PacoteNacional) pacote).getEstadoOrigem(),
-                    ((PacoteNacional) pacote).getIncluiTransporte(), ((PacoteNacional) pacote).getCidade() };
+                    ((PacoteNacional) pacote).getIncluiTransporte().toString(), ((PacoteNacional) pacote).getCidade()};
         else
             return new String[] {
                     pacote.getId(), pacote.getPais(),
                     pacote.getClima(), pacote.getDescricao(),
-                    pacote.getPreco().toString(), ((PacoteInternacional) pacote).getNecessitaVisto(),
+                    pacote.getPreco().toString(), ((PacoteInternacional) pacote).getNecessitaVisto().toString(),
                     ((PacoteInternacional) pacote).getIdioma(), ((PacoteInternacional) pacote).getMoedaLocal()
             };
     }
@@ -108,18 +112,18 @@ public class BancoDeDadosSimulado {
     // 🔹 Converte uma linha do arquivo em um objeto Reserva
     public Reserva stringParaReserva(String[] dados) {
         return new Reserva(dados[0], dados[1], Integer.parseInt(dados[2]), dados[3],
-                LocalDate.parse(dados[4]), LocalDate.parse(dados[5]), LocalDate.parse(dados[6]),
-                dados[7], dados[8], BigDecimal.valueOf(Double.parseDouble(dados[9])));
+                LocalDate.parse(dados[4]), LocalDate.parse(dados[5]), Integer.parseInt(dados[6]),
+                FormaPagamento.valueOf(dados[7]), StatusReserva.valueOf(dados[7]), BigDecimal.valueOf(Double.parseDouble(dados[9])));
     }
 
     // 🔹 Converte Pacote em String[] para salvar no arquivo
     public String[] reservaParaString(Reserva reserva) {
         return new String[] {
                 reserva.getId(), reserva.getClienteNome(),
-                Integer.toString(reserva.getPessoasViagem()),
+                "" + reserva.getPessoasViagem(),
                 reserva.getPacoteId(), reserva.getDataReserva().toString(),
-                reserva.getDataInicio().toString(), reserva.getDataFim().toString(),
-                reserva.getFormaPagamento(), reserva.getStatus(), reserva.getPrecoFinal().toString()
+                reserva.getDataInicio().toString(), "" + reserva.getQuantidadeDias(),
+                reserva.getFormaPagamento().toString(), reserva.getStatus().toString(), reserva.getPrecoFinal().toString()
         };
     }
 

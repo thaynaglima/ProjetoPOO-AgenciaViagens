@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.exemplo.agencia.model.Cliente;
 import com.exemplo.agencia.model.PacoteViagem;
 import com.exemplo.agencia.model.Reserva;
+import com.exemplo.agencia.model.Reserva.FormaPagamento;
+import com.exemplo.agencia.model.Reserva.StatusReserva;
+import com.exemplo.agencia.service.ClienteService;
 import com.exemplo.agencia.service.PacoteService;
 import org.springframework.ui.Model;
 import com.exemplo.agencia.service.ReservaService;
@@ -23,6 +27,9 @@ public class ReservaController {
 
     @Autowired
     private PacoteService pacoteService;
+
+    @Autowired
+    private ClienteService clienteService;
 
     public ReservaController(ReservaService reservaService, PacoteService pacoteService) {
         this.reservaService = reservaService;
@@ -43,16 +50,17 @@ public class ReservaController {
     // Processar o formulário e ir para próxima etapa
     @ResponseBody
     public String processarReserva(
-        @RequestParam String nome,
         @RequestParam int pessoasViagem,
         @RequestParam String pacoteId,
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFim,
-        @RequestParam String formaPagamento,
-        @RequestParam String status,
+        @RequestParam int quantidadeDias,
+        @RequestParam FormaPagamento formaPagamento,
+        @RequestParam StatusReserva status,
         @RequestParam BigDecimal precoFinal
     ) {
-        Reserva reserva = new Reserva(reservaService.buscarProximoId(),nome,pessoasViagem,pacoteId,LocalDate.now(), dataInicio, dataFim, 
+        // pega o cliente logado
+        Cliente clienteLogado = clienteService.getClienteLogado();
+        Reserva reserva = new Reserva(reservaService.buscarProximoId(),clienteLogado.getNome(),pessoasViagem,pacoteId,LocalDate.now(), dataInicio, quantidadeDias, 
                                         formaPagamento, status, precoFinal);
 
         reservaService.salvarReserva(reserva);

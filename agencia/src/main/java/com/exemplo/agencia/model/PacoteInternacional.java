@@ -2,14 +2,29 @@ package com.exemplo.agencia.model;
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class PacoteInternacional extends PacoteViagem {
-  private String necessitaVisto;
+
+  @NotNull
+  private Visto necessitaVisto;
+
+  @NotBlank
   private String idioma;
+
+  @NotBlank
   private String moedaLocal;
+
+
+  public enum Visto { SIM, NAO }
+
+  public PacoteInternacional() { }
+
 
   // Construtor, getters e setters
   public PacoteInternacional(String id, String pais, String clima, String descricao, BigDecimal preco,
-      String necessitaVisto, String idioma, String moedaLocal) {
+      Visto necessitaVisto, String idioma, String moedaLocal) {
     super(idioma, pais, clima, descricao, preco);
 
     this.necessitaVisto = necessitaVisto;
@@ -17,11 +32,11 @@ public class PacoteInternacional extends PacoteViagem {
     this.moedaLocal = moedaLocal;
   }
 
-  public String getNecessitaVisto() {
+  public Visto getNecessitaVisto() {
     return necessitaVisto;
   }
 
-  public void setNecessitaVisto(String necessitaVisto) {
+  public void setNecessitaVisto(Visto necessitaVisto) {
     this.necessitaVisto = necessitaVisto;
   }
 

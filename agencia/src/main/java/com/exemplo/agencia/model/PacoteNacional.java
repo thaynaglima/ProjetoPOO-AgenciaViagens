@@ -2,14 +2,27 @@ package com.exemplo.agencia.model;
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class PacoteNacional extends PacoteViagem {
+    @NotBlank
     private String estadoOrigem;
-    private String incluiTransporte;
+
+    @NotNull
+    private Transporte incluiTransporte;
+
+    @NotBlank
     private String cidade;
 
+    public enum Transporte { SIM, NAO }
+
+    public PacoteNacional() { }
+
     
-    public PacoteNacional(String id, String pais, String clima, String descricao, BigDecimal preco, String estadoOrigem, String incluiTransporte, String cidade) {
-        super(cidade, pais, clima, descricao, preco);
+    public PacoteNacional(String id, String pais, String clima, String descricao, BigDecimal preco, 
+                          String estadoOrigem, Transporte incluiTransporte, String cidade) {
+        super(id, pais, clima, descricao, preco);
         this.estadoOrigem = estadoOrigem;
         this.incluiTransporte = incluiTransporte;
         this.cidade = cidade;
@@ -26,12 +39,12 @@ public class PacoteNacional extends PacoteViagem {
     }
 
 
-    public String getIncluiTransporte() {
+    public Transporte getIncluiTransporte() {
         return incluiTransporte;
     }
 
 
-    public void setIncluiTransporte(String incluiTransporte) {
+    public void setIncluiTransporte(Transporte incluiTransporte) {
         this.incluiTransporte = incluiTransporte;
     }
 
