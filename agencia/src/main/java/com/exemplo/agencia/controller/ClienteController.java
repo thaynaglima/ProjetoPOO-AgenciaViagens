@@ -33,9 +33,38 @@ public class ClienteController {
         @RequestParam String email,
         @RequestParam String senha,
         @RequestParam String cpf,
+        @RequestParam String confirmPassword,
+        @RequestParam boolean aceitarTermos,
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataNascimento,
         @RequestParam String telefone
     ) {
+        // Validações básicas no Controller
+    if (nome == null || nome.isBlank()) {
+        return "Nome é obrigatório";
+    }
+    if (!email.matches("^[\\w-.]+@[\\w-]+\\.[a-z]{2,}$")) {
+        return "Email inválido";
+    }
+    if (senha.length() < 8) {
+        return "Senha deve ter no mínimo 8 caracteres";
+    }
+    if (!senha.equals(confirmPassword)) {
+        return "As senhas não conferem";
+    }
+    if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+        return "CPF inválido";
+    }
+    if (dataNascimento == null || dataNascimento.isAfter(LocalDate.now())) {
+        return "Data de nascimento inválida";
+    }
+    if (!telefone.matches("\\(\\d{2}\\) \\d{4,5}-\\d{4}")) {
+        return "Telefone inválido";
+    }
+    if (!aceitarTermos) {
+        return "Você deve aceitar os termos";
+    }
+
+    // Se passou nas validações básicas, delega para o service salvar
         Cliente cliente = new Cliente(nome,email,senha,cpf, dataNascimento, telefone);
 
         clienteService.salvarCliente(cliente);
