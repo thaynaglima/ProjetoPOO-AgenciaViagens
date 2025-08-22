@@ -94,4 +94,23 @@ public class PacoteController {
         model.addAttribute("pacotes", filterPrice);
         return "pacotes";
     }
+
+    @GetMapping("/pesquisarId")
+    public String PesquisarId(String id, Model model){
+        PacoteViagem pacote = pacoteService.getBuscarPorId(id);
+
+        if(pacote != null)
+        model.addAttribute("pacote", pacote);
+            else
+            model.addAttribute("pacote", null);
+        return "pacotes";
+    }
+
+
+    @GetMapping("/pesquisar")
+    public String PesquisarNome (String nome, Model model){
+        List<PacoteViagem> filtroPesquisa = pacoteService.getPesquisarNome(nome);
+        model.addAttribute("Pacotes", filtroPesquisa);
+        return "pacotes";
+    }
 }
