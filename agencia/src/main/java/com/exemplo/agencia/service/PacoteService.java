@@ -40,6 +40,7 @@ public class PacoteService {
                 .toList();
     }
 
+    //Filtros de pesquisar pelos preços
     public List<PacoteViagem> getPrecosAte2k() {
         return bancoPacote.getPacotes().stream().filter(p -> p.getPreco().compareTo(new BigDecimal("2000")) < 0)
                 .toList();
@@ -55,7 +56,7 @@ public class PacoteService {
                 .toList();
     }
 
-    public List<PacoteViagem> getOrdenarAtoZ() {
+    public List<PacoteViagem> getOrdenarAtoZ() { // Filtro de pesquisar por ordem alfabética
         return bancoPacote.getPacotes().stream()
                 .sorted(Comparator.comparing(PacoteViagem::getPais))
                 .toList();
@@ -70,6 +71,7 @@ public class PacoteService {
                 .toList();
     }
 
+    //Filtro de pesquisar por Id
     public PacoteViagem getBuscarPorId(String pacoteId) {
         return bancoPacote.getPacotes().stream()
                 .filter(p -> p.getId().equals(pacoteId))
@@ -84,5 +86,19 @@ public class PacoteService {
                 .toList();
     }
 
-    
+    //Preços na alta temporada 
+   public List<PacoteViagem> getPacotesAltaTemp() {
+    List<PacoteViagem> base = bancoPacote.getPacotes();
+    return base.stream()
+               .map((PacoteViagem p) -> p.getClonePreco(p.getPreco().multiply(BigDecimal.valueOf(1.15))))
+               .toList();
+    }
+
+   //Preços na baixa temporada
+   public List<PacoteViagem> getPacotesBaixaTemp(){
+    List<PacoteViagem> base = bancoPacote.getPacotes();
+    return base.stream()
+                .map((PacoteViagem p) -> p.getClonePreco(p.getPreco().multiply(BigDecimal.valueOf(0.85))))
+                .toList();
+   }
 }

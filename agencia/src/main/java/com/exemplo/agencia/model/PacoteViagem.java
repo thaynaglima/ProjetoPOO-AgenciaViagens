@@ -96,6 +96,8 @@ public abstract	class PacoteViagem{
         }
     }
 
+	public abstract PacoteViagem getClonePreco(BigDecimal novoPreco);
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

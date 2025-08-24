@@ -28,6 +28,11 @@ public class PacoteNacional extends PacoteViagem {
         this.cidade = cidade;
     }
 
+    @Override
+    public PacoteViagem getClonePreco(BigDecimal novoPreco){
+        return new PacoteNacional(getId(), getPais(), getClima(), getDescricao(), novoPreco,
+                                  getEstadoOrigem(), getIncluiTransporte(), getCidade());
+    }
 
     public String getEstadoOrigem() {
         return estadoOrigem;

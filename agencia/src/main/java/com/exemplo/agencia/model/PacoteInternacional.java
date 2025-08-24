@@ -32,6 +32,12 @@ public class PacoteInternacional extends PacoteViagem {
     this.moedaLocal = moedaLocal;
   }
 
+  @Override
+  public PacoteViagem getClonePreco(BigDecimal novoPreco){
+    return new PacoteInternacional(getId(), getPais(), getClima(), getDescricao(), novoPreco,
+                                   getNecessitaVisto(), getIdioma(), getMoedaLocal());
+  }
+
   public Visto getNecessitaVisto() {
     return necessitaVisto;
   }

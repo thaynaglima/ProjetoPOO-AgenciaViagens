@@ -106,11 +106,24 @@ public class PacoteController {
         return "pacotes";
     }
 
-
     @GetMapping("/pesquisar")
     public String PesquisarNome (String nome, Model model){
         List<PacoteViagem> filtroPesquisa = pacoteService.getPesquisarNome(nome);
         model.addAttribute("Pacotes", filtroPesquisa);
         return "pacotes";
+    }
+
+    @GetMapping("/alta-temporada")
+    public String listarPacotesAlta(Model model) {
+        List<PacoteViagem> pacotesAlta = pacoteService.getPacotesAltaTemp();
+        model.addAttribute("Pacotes", pacotesAlta);
+        return "pacotes"; 
+    }
+
+    @GetMapping("/baixa-temporada")
+    public String listarPacotesBaixa(Model model) {
+        List<PacoteViagem> pacotesBaixa = pacoteService.getPacotesBaixaTemp();
+        model.addAttribute("Pacotes", pacotesBaixa);
+        return "pacotes"; 
     }
 }
