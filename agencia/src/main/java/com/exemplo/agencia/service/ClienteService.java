@@ -73,6 +73,11 @@ public class ClienteService {
     return bancoCliente.getClientes().stream().filter(c -> c.getCpf().equals(cpf)).findFirst().orElse(null);
   }
 
+  // buscar por cpf do cliente *
+  public Cliente buscarPorEmail(String email) {
+    return bancoCliente.getClientes().stream().filter(c -> c.getEmail().equals(email)).findFirst().orElse(null);
+  }
+
   // Valida todos os dados do cliente
   private void validarCliente(Cliente cliente) {
     if (cliente.getNome() == null || cliente.getNome().isBlank()) {

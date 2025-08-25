@@ -65,14 +65,14 @@ public class PacoteController {
 
     @GetMapping("/pacotesEntre2kE5k")
     public String filtrarPacotesEntre2kE5k(Model model){
-        List<PacoteViagem> entre2kE5k = pacoteService.getPrecosAte2k();
+        List<PacoteViagem> entre2kE5k = pacoteService.getPrecosAte5k();
         model.addAttribute("pacotes", entre2kE5k);
         return "pacotes";
     }
 
     @GetMapping("/pacotesAcima5k")
     public String filtrarPacotesAcima5k(Model model){
-        List<PacoteViagem> acima5k = pacoteService.getPrecosAte2k();
+        List<PacoteViagem> acima5k = pacoteService.getPrecosMaior5k();
         model.addAttribute("pacotes", acima5k);
         return "pacotes";
     }
@@ -112,7 +112,7 @@ public class PacoteController {
     @GetMapping("/pesquisar")
     public String PesquisarNome (String nome, Model model){
         List<PacoteViagem> filtroPesquisa = pacoteService.getPesquisarNome(nome);
-        model.addAttribute("Pacotes", filtroPesquisa);
+        model.addAttribute("pacotes", filtroPesquisa);
         return "pacotes";
     }
 

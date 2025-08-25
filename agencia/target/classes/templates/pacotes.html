@@ -15,7 +15,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center space-x-2">
+                    <a th:href="@{/}" class="flex items-center space-x-2">
                         <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -26,25 +26,25 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
-                    <a href="index.html"
+                    <a th:href="@{/}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
-                    <a href="pacotes.html" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50">Pacotes</a>
-                    <a href="cadastro.html"
+                    <a th:href="@{/pacotesTodos}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50">Pacotes</a>
+                    <a th:href="@{/cadastro}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-cadastro">Cadastro</a>
-                    <a href="reserva.html"
+                    <a th:href="@{/reserva}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-reserva">Reserva</a>
-                    <a href="historico-reservas.html"
+                    <a th:href="@{/historico-reservas}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-historico">Minhas Reservas</a>
-                    <a href="perfil.html"
+                    <a th:href="@{/perfil}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-perfil">Meu Perfil</a>
 
                     <!-- Login/User Menu -->
                     <div id="auth-section">
-                        <a href="login.html"
+                        <a th:href="@{/login}"
                             class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
                             id="login-btn">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,24 +93,24 @@
         <!-- Mobile Navigation -->
         <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html"
+                <a th:href="@{/}"
                     class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
-                <a href="pacotes.html" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50">Pacotes</a>
-                <a href="cadastro.html"
+                <a th:href="@{/pacotesTodos}" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50">Pacotes</a>
+                <a th:href="@{/cadastro}"
                     class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-cadastro">Cadastro</a>
-                <a href="reserva.html"
+                <a th:href="@{/reserva}"
                     class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-reserva">Reserva</a>
-                <a href="historico-reservas.html"
+                <a th:href="@{/historico-reservas}"
                     class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-historico">Minhas Reservas</a>
-                <a href="perfil.html"
+                <a th:href="@{/perfil}"
                     class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-perfil">Meu Perfil</a>
 
                 <div class="border-t pt-2 mt-2" id="mobile-auth-section">
-                    <a href="login.html" class="block px-3 py-2 rounded-md bg-blue-600 text-white"
+                    <a th:href="@{/login}" class="block px-3 py-2 rounded-md bg-blue-600 text-white"
                         id="mobile-login-btn">Entrar</a>
 
                     <div class="hidden space-y-2" id="mobile-user-menu">

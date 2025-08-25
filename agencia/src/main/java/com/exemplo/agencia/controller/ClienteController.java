@@ -69,17 +69,17 @@ public class ClienteController {
 
         clienteService.salvarCliente(cliente);
 
-        return "Cliente cadastrado com sucesso!";
+        return "redirect:/login";
     }
 
     @PostMapping("/login")
-    @ResponseBody
-    public String login(@RequestParam String email, @RequestParam String senha) {
+    public String login(@RequestParam String email, @RequestParam String senha, Model model) {
         boolean autenticado = clienteService.autenticar(email, senha);
         if (autenticado) {
-            return "Login realizado com sucesso!";
+            return "redirect:/clientes/perfil/" + clienteService.buscarPorEmail(email).getCpf();
         } else {
-            return "Email ou senha inválidos!";
+            model.addAttribute("erro", "Email ou senha inválidos!");
+        return "login"; // volta para a página de login com mensagem de erro
         }
     }
     

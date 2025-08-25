@@ -10,7 +10,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class ArquivoUtils {
-    static String caminhoBase = "src/main/resources/templates/";
+    static String caminhoBase = "src/main/resources/dados/";
 
     public static List<String[]> lerArquivo(String nomeArquivo) throws IOException {
         Path arquivo = Paths.get(caminhoBase + nomeArquivo);

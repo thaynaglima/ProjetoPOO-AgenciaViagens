@@ -10,6 +10,11 @@ public class PaginasController {
     return "index"; // carrega index.html
   }
 
+  @GetMapping("/cadastro")
+  public String cadastro(){
+    return "cadastro"; // carrega cadastro.html
+  }
+
   @GetMapping("/pacotes")
   public String pacotes(){
     return "pacotes"; // carrega pacotes.html

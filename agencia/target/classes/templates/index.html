@@ -15,7 +15,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex items-center space-x-2">
+                    <a th:href="@{/}" class="flex items-center space-x-2">
                         <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -26,25 +26,25 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
-                    <a href="index.html" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50">Início</a>
-                    <a href="pacotes.html"
+                    <a th:href="@{/}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50">Início</a>
+                    <a th:href="@{/pacotesTodos}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
-                    <a href="cadastro.html"
+                    <a th:href="@{/cadastro}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                         id="nav-cadastro">Cadastro</a>
-                    <a href="reserva.html"
+                    <a th:href="@{/reserva}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-reserva">Reserva</a>
-                    <a href="historico-reservas.html"
+                    <a th:href="@{/historico-reservas}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-historico">Minhas Reservas</a>
-                    <a href="perfil.html"
+                    <a th:href="@{/perfil}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-perfil">Meu Perfil</a>
 
                     <!-- Login/User Menu -->
                     <div id="auth-section">
-                        <a href="login.html"
+                        <a th:href="@{/login}"
                             class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
                             id="login-btn">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,24 +93,24 @@
         <!-- Mobile Navigation -->
         <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="index.html" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50">Início</a>
-                <a href="pacotes.html"
+                <a th:href="@{/}" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50">Início</a>
+                <a th:href="@{/pacotesTodos}"
                     class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
-                <a href="cadastro.html"
+                <a th:href="@{/cadastro}"
                     class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-cadastro">Cadastro</a>
-                <a href="reserva.html"
+                <a th:href="@{/reserva}"
                     class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-reserva">Reserva</a>
-                <a href="historico-reservas.html"
+                <a th:href="@{/historico-reservas}"
                     class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-historico">Minhas Reservas</a>
-                <a href="perfil.html"
+                <a th:href="@{/perfil}"
                     class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                     id="mobile-nav-perfil">Meu Perfil</a>
 
                 <div class="border-t pt-2 mt-2" id="mobile-auth-section">
-                    <a href="login.html" class="block px-3 py-2 rounded-md bg-blue-600 text-white"
+                    <a th:href="@{/login}" class="block px-3 py-2 rounded-md bg-blue-600 text-white"
                         id="mobile-login-btn">Entrar</a>
 
                     <div class="hidden space-y-2" id="mobile-user-menu">
@@ -119,8 +119,8 @@
                                 <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm"
                                     id="mobile-user-avatar">JS</div>
                                 <div>
-                                    <p class="text-sm font-medium" id="mobile-user-name">João Silva</p>
-                                    <p class="text-xs text-gray-600" id="mobile-user-email">joao@example.com</p>
+                                    <p class="text-sm font-medium" id="user-avatar">Usuário</p>
+                                    <p class="text-xs text-gray-600" id="user-avatar">email@example.com</p>
                                 </div>
                             </div>
                         </div>
@@ -137,7 +137,7 @@
         <div class="max-w-7xl mx-auto">
             <div class="bg-blue-100 border border-blue-200 rounded-md p-4">
                 <p class="text-blue-800" id="welcome-text">
-                    Olá, <strong id="welcome-name">Usuário</strong>! Que bom ter você aqui!
+                    Olá, <strong id="user-avatar">Usuário</strong>! Que bom ter você aqui!
                 </p>
             </div>
         </div>
@@ -155,11 +155,11 @@
                 Pacotes personalizados para todos os destinos!
             </p>
             <div class="space-x-4">
-                <a href="pacotes.html"
+                <a th:href="@{/pacotesTodos}"
                     class="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-lg text-lg font-medium transition-colors">
                     Ver Pacotes
                 </a>
-                <a href="cadastro.html"
+                <a th:href="@{/cadastro}"
                     class="border-2 border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-lg text-lg font-medium transition-colors"
                     id="hero-cadastro">
                     Cadastre-se
@@ -249,7 +249,7 @@
                         <div class="absolute bottom-4 left-4 text-white">
                             <h3 class="text-xl font-medium mb-1" th:text="${pacote.pais}">País</h3>
                             <p class="text-sm text-gray-200"
-                                th:text="'A partir de R$ ' + ${#numbers.formatDecimal(pacote.preco, 2, 'POINT')}">Preço
+                                th:text="'A partir de R$ ' + ${#numbers.formatDecimal(pacote.preco, 'COMMA', 'POINT')}">Preço
                             </p>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
             </div>
 
             <div class="text-center mt-12">
-                <a href="pacotes.html"
+                <a th:href="@{/pacotesTodos}"
                     class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors">
                     Ver Todos os Pacotes
                 </a>
@@ -273,12 +273,12 @@
                 Entre em contato conosco e planeje a viagem dos seus sonhos com quem entende do assunto
             </p>
             <div class="space-x-4">
-                <a href="reserva.html"
+                <a th:href="@{/reserva}"
                     class="bg-white text-blue-600 px-8 py-3 rounded-lg text-lg font-medium hover:bg-gray-100 transition-colors"
                     id="cta-reserva">
                     Fazer Reserva
                 </a>
-                <a href="cadastro.html"
+                <a th:href="@{/cadastro}"
                     class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-lg text-lg font-medium transition-colors"
                     id="cta-cadastro">
                     Cadastrar-se

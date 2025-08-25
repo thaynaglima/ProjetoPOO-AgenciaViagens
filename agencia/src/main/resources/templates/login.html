@@ -33,17 +33,16 @@
                 <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
                     <div class="text-sm text-blue-800">
                         <strong>Credenciais de Demonstração:</strong><br>
-                        Email: cliente@example.com<br>
+                        Email: cliente@exemplo.com<br>
                         Senha: 123456<br>
-                        <button onclick="fillDemoCredentials()"
-                            class="text-blue-600 hover:text-blue-700 underline mt-1">
-                            Preencher automaticamente
-                        </button>
                     </div>
                 </div>
 
+                <div th:if="${erro}" class="mb-4 p-3 bg-red-100 text-red-700 border border-red-300 rounded">
+                    <span th:text="${erro}">Mensagem de erro</span>
+                </div>
                 <!-- Login Form -->
-                <form id="login-form" class="space-y-4" action="/login" method="post">
+                <form id="login-form" class="space-y-4" th:action="@{/clientes/login}" method="post">
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
                             Email
@@ -53,32 +52,14 @@
                     </div>
 
                     <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+                        <label for="senha" class="block text-sm font-medium text-gray-700 mb-1">
                             Senha
                         </label>
                         <div class="relative">
-                            <input type="password" id="password" name="password" required class="form-input pr-10"
+                            <input type="password" id="password" name="senha" required class="form-input pr-10"
                                 placeholder="Sua senha" autocomplete="current-password">
-                            <button type="button" onclick="togglePassword()"
-                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                <svg id="eye-icon" class="w-5 h-5" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                    </path>
-                                </svg>
-                                <svg id="eye-off-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21">
-                                    </path>
-                                </svg>
-                            </button>
                         </div>
                     </div>
-
                     <button type="submit" class="btn-primary w-full" id="login-submit">
                         Entrar
                     </button>
@@ -88,7 +69,7 @@
                 <div class="mt-6 text-center">
                     <p class="text-sm text-gray-600">
                         Não tem uma conta?
-                        <a href="cadastro.html" class="text-blue-600 hover:text-blue-700 underline">
+                        <a th:href="@{/cadastro}" class="text-blue-600 hover:text-blue-700 underline">
                             Cadastre-se aqui
                         </a>
                     </p>
