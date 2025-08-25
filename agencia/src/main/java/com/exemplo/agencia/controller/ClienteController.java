@@ -83,13 +83,42 @@ public class ClienteController {
         }
     }
     
-     //buscar os dados do cliente***
+     //buscar os dados do cliente
     @GetMapping("/perfil/{cpf}")
     public String identificarPerfil(@PathVariable String cpf, Model model){
         Cliente cliente = clienteService.buscarPorCpf(cpf);
         model.addAttribute("cliente",cliente );
         return "perfil";
     }
+
+    // Alterar Email
+    @PostMapping("/{cpf}/alterar-email")
+    @ResponseBody
+    public String alterarEmail(
+        @PathVariable String cpf,
+        @RequestParam String novoEmail) {
+        try {
+            Cliente atualizado = clienteService.alterarEmail(cpf, novoEmail);
+            return "Email alterado com sucesso! Novo email: " + atualizado.getEmail();
+        } catch (IllegalArgumentException e) {
+            return "Erro: " + e.getMessage();
+        }
+    }
+
+    // Alterar Senha
+    @PostMapping("/{cpf}/alterar-senha")
+    @ResponseBody
+    public String alterarSenha(
+        @PathVariable String cpf,
+        @RequestParam String novaSenha) {
+        try {
+            Cliente atualizado = clienteService.alterarSenha(cpf, novaSenha);
+            return "Senha alterada com sucesso!";
+        } catch (IllegalArgumentException e) {
+            return "Erro: " + e.getMessage();
+        }
+    }
+
 }
 
 

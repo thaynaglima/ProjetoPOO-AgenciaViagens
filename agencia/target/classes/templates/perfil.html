@@ -84,24 +84,24 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="text-sm text-gray-600">Nome Completo</label>
-                            <p class="font-medium" id="profile-name">João Silva</p>
+                            <p class="font-medium" id="profile-name" th:text= "${cliente.nome}">João Silva</p>
                         </div>
                         
                         <div>
                             <label class="text-sm text-gray-600">CPF</label>
-                            <p class="font-medium" id="profile-cpf">123.456.789-00</p>
+                            <p class="font-medium" id="profile-cpf"  th: text= "${cliente.cpf}">123.456.789-00</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="text-sm text-gray-600">Data de Nascimento</label>
-                            <p class="font-medium" id="profile-birthdate">15/03/1985</p>
+                            <p class="font-medium" id="profile-birthdate"  th:text= "${cliente.dataNascimento}">15/03/1985</p>
                         </div>
                         
                         <div>
                             <label class="text-sm text-gray-600">Telefone</label>
-                            <p class="font-medium" id="profile-phone">(11) 99999-9999</p>
+                            <p class="font-medium" id="profile-phone" th:text="${cliente.telefone}">(11) 99999-9999</p>
                         </div>
                     </div>
 

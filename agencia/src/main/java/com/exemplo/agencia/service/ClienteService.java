@@ -2,6 +2,7 @@ package com.exemplo.agencia.service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exemplo.agencia.model.Cliente;
+import com.exemplo.agencia.util.ArquivoUtils;
 import com.exemplo.agencia.util.BancoDeDadosSimulado;
 import com.exemplo.agencia.util.SessaoUsuario;
 
@@ -98,6 +100,60 @@ public class ClienteService {
     if (cliente.getTelefone() == null || !TELEFONE_PATTERN.matcher(cliente.getTelefone()).matches()) {
       throw new IllegalArgumentException("Telefone inválido");
     }
+  }
+   private void salvarClientesNoArquivo() {
+    List<String[]> dados = new ArrayList<>();
+    for (Cliente c : bancoCliente.getClientes()) {
+        dados.add(new String[] {
+            c.getNome(),
+            c.getEmail(),
+            c.getCpf(),
+            c.getTelefone(),
+            c.getSenha()
+        });
+    }
+
+    try {
+        ArquivoUtils.salvarArquivo("clientes.txt", dados);
+    } catch (IOException e) {
+        throw new RuntimeException("Erro ao salvar clientes no arquivo", e);
+    }
+}
+//alterar email
+  public Cliente alterarEmail(String cpf, String novoEmail){
+    Cliente cliente = buscarPorCpf(cpf);
+
+
+    if(cliente == null){
+      throw new IllegalArgumentException("Cliente não encontrado!");
+    }
+    if(novoEmail == null || !EMAIL_PATTERN.matcher(novoEmail).matches()){
+      throw new IllegalArgumentException("Email invalido");
+    }
+
+    cliente.setEmail(novoEmail);
+    salvarClientesNoArquivo();
+    return cliente;
+    
+  }
+
+ /**
+ * @param cpf
+ * @param novaSenha
+ * @return
+ */
+public Cliente alterarSenha(String cpf, String novaSenha){
+    Cliente cliente = buscarPorCpf(cpf);
+
+    if(cliente == null){
+      throw new IllegalArgumentException("Cliente não encontrado!");
+    }
+    if(novaSenha == null || novaSenha.length() < 8){
+      throw new IllegalArgumentException("Senha deve ter no mínimo 8 caracteres");
+    }
+    cliente.setSenha(novaSenha);
+    salvarClientesNoArquivo();
+    return cliente;
   }
 
 }
