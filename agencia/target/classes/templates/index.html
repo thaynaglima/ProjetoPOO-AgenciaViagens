@@ -32,15 +32,14 @@
                     <a th:href="@{/cadastro}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                         id="nav-cadastro">Cadastro</a>
-                    <div th:if="${session.clienteLogado != null}"></div>
                     <a th:href="@{/reserva}"
-                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-reserva">Reserva</a>
                     <a th:href="@{/historico-reservas}"
-                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-historico">Minhas Reservas</a>
                     <a th:href="@{/perfil}"
-                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
                         id="nav-perfil">Meu Perfil</a>
                     </div>
                     <!-- Login/User Menu -->
