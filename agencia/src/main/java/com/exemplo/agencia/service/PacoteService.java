@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.exemplo.agencia.model.PacoteInternacional;
 import com.exemplo.agencia.model.PacoteNacional;
 import com.exemplo.agencia.model.PacoteViagem;
+import com.exemplo.agencia.util.BancoDeDadosSimulado;
 
 @Service
 public class PacoteService {
@@ -86,19 +87,15 @@ public class PacoteService {
                 .toList();
     }
 
-    //Preços na alta temporada 
-   public List<PacoteViagem> getPacotesAltaTemp() {
-    List<PacoteViagem> base = bancoPacote.getPacotes();
-    return base.stream()
-               .map((PacoteViagem p) -> p.getClonePreco(p.getPreco().multiply(BigDecimal.valueOf(1.15))))
-               .toList();
+    //Preço na alta temporada 
+   public BigDecimal getPrecoAltaTemp(String pacoteId) {
+    PacoteViagem pacote = getBuscarPorId(pacoteId);
+    return pacote.getPrecoAltaTemporada();
     }
 
-   //Preços na baixa temporada
-   public List<PacoteViagem> getPacotesBaixaTemp(){
-    List<PacoteViagem> base = bancoPacote.getPacotes();
-    return base.stream()
-                .map((PacoteViagem p) -> p.getClonePreco(p.getPreco().multiply(BigDecimal.valueOf(0.85))))
-                .toList();
+   //Preço na baixa temporada
+   public BigDecimal getPrecoBaixaTemp(String pacoteId){
+    PacoteViagem pacote = getBuscarPorId(pacoteId);
+    return pacote.getPrecoBaixaTemporada();
    }
 }

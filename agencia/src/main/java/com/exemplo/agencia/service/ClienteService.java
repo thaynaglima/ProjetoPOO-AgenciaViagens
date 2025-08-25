@@ -5,14 +5,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.exemplo.agencia.model.Cliente;
+import com.exemplo.agencia.util.BancoDeDadosSimulado;
+import com.exemplo.agencia.util.SessaoUsuario;
 
 @Service
 public class ClienteService {
   private final BancoDeDadosSimulado bancoCliente;
-  private Cliente clienteLogado;
+  @Autowired
+  private SessaoUsuario sessaoUsuario;
 
   // Constantes para validação
   private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w-.]+@[\\w-]+(\\.[\\w-]+)+$");
@@ -33,12 +37,9 @@ public class ClienteService {
     // Adiciona o cliente na lista em memória
     bancoCliente.getClientes().add(cliente);
 
-    // Converte cliente para String[] usando método do BancoDeDadosSimulado
-    String[] clienteArray = bancoCliente.clienteParaString(cliente);
-
     try {
-      // Usa o método para adicionar uma linha no arquivo (append)
-      ArquivoUtils.adicionarLinha("clientes.txt", clienteArray);
+       // Salva o estado completo da lista no arquivo
+        bancoCliente.salvarDados(); // sobrescreve clientes.txt
     } catch (IOException e) {
       e.printStackTrace();
       throw new RuntimeException("Erro ao adicionar cliente no arquivo.", e);
@@ -46,33 +47,29 @@ public class ClienteService {
   }
 
   public boolean autenticar(String email, String senha) {
-    Cliente encontrado = bancoCliente.getClientes()
+   Cliente cliente = bancoCliente.getClientes()
         .stream()
         .filter(c -> c.getEmail().equals(email) && c.getSenha().equals(senha))
         .findFirst()
         .orElse(null);
 
-    if (encontrado != null) {
-      this.clienteLogado = encontrado;
-      return true;
-    }
+    if (cliente != null) {
+            sessaoUsuario.logar(cliente);
+            return true;
+        }
     return false;
   }
 
-  public Cliente getClienteLogado() {
-    if (clienteLogado == null) {
-      throw new IllegalStateException("Nenhum cliente está logado no momento!");
-    }
-    return clienteLogado;
+  public void logout() {
+    sessaoUsuario.logout();
   }
 
-  public Cliente buscarPorCpf(String cpf) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'buscarPorCpf'");
+  public Cliente getClienteLogado() {
+    return sessaoUsuario.getClienteAtual();
   }
 
   // buscar por cpf do cliente *
-  public Cliente buscaCpf(String cpf) {
+  public Cliente buscarPorCpf(String cpf) {
     return bancoCliente.getClientes().stream().filter(c -> c.getCpf().equals(cpf)).findFirst().orElse(null);
   }
 

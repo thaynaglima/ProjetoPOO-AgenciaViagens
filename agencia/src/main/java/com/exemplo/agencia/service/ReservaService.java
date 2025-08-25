@@ -1,11 +1,13 @@
 package com.exemplo.agencia.service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.exemplo.agencia.model.PacoteViagem;
 import com.exemplo.agencia.model.Reserva;
+import com.exemplo.agencia.util.BancoDeDadosSimulado;
 
 @Service
 public class ReservaService {
@@ -29,6 +31,21 @@ public class ReservaService {
     }
 
     public void salvarReserva(Reserva reserva) {
+        // Gera ID automático se não tiver
+        if (reserva.getId() == null || reserva.getId().isBlank()) {
+            reserva.setId(buscarProximoId());
+        }
+
+        // Inicializa status como PENDENTE se não definido
+        if (reserva.getStatus() == null) {
+            reserva.setStatus(Reserva.StatusReserva.PENDENTE);
+        }
+
+        // Calcula precoFinal usando o pacote selecionado
+        if (pacoteSelecionado != null) {
+            BigDecimal precoCalculado = calcularPrecoFinal(reserva, pacoteSelecionado);
+            reserva.setPrecoFinal(precoCalculado);
+        }
         bancoReserva.getReservas().add(reserva); // adiciona na lista em memória
         try {
             bancoReserva.salvarDados(); // persiste no arquivo
@@ -62,4 +79,14 @@ public class ReservaService {
     return "RES" + String.format("%03d", maxId + 1); // Ex: R005
     }
 
+    public BigDecimal calcularPrecoFinal(Reserva reserva, PacoteViagem pacote) {
+    if (pacote == null) return BigDecimal.ZERO;
+
+        BigDecimal precoBase = pacote.getPreco();
+        BigDecimal preco = precoBase
+                .multiply(BigDecimal.valueOf(reserva.getPessoasViagem()))
+                .multiply(BigDecimal.valueOf(reserva.getQuantidadeDias()));
+
+        return preco;
+    }
 }

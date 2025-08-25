@@ -6,9 +6,11 @@ import java.util.Objects;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public abstract	class PacoteViagem{
 	@NotBlank
+	@Pattern(regexp = "PKG\\d+", message = "ID deve seguir o formato PKG123")
 	private String id;
 
 	@NotBlank
@@ -23,6 +25,8 @@ public abstract	class PacoteViagem{
 	@NotNull
     @DecimalMin(value = "0.00", inclusive = true, message = "Preço não pode ser negativo")
 	private BigDecimal preco;
+
+	@Pattern(regexp = "^(http|https)://.*$", message = "A URL da imagem deve ser válida")
 	private String imagemUrl;
 	
 	public PacoteViagem() { }
@@ -95,9 +99,14 @@ public abstract	class PacoteViagem{
             default: return "https://cdn.prod.website-files.com/6712e729148886be5f355687/67160d7aadab88ed905c0285_Cidadaos-portugueses-necessitam-de-visto-para-o-Mexico.jpeg";
         }
     }
-
-	public abstract PacoteViagem getClonePreco(BigDecimal novoPreco);
 	
+	public BigDecimal getPrecoAltaTemporada() {
+		return preco.multiply(BigDecimal.valueOf(1.20)); // ex: 20% a mais
+	}
+
+	public BigDecimal getPrecoBaixaTemporada() {
+		return preco.multiply(BigDecimal.valueOf(0.85)); // ex: 15% a menos
+	}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

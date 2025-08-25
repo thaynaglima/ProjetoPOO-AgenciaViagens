@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class PacoteNacional extends PacoteViagem {
     @NotBlank
@@ -13,6 +14,7 @@ public class PacoteNacional extends PacoteViagem {
     private Transporte incluiTransporte;
 
     @NotBlank
+    @Pattern(regexp = "^[A-Za-zÀ-ÖØ-öø-ÿ\\s]+$", message = "Cidade deve conter apenas letras")
     private String cidade;
 
     public enum Transporte { SIM, NAO }
@@ -20,18 +22,12 @@ public class PacoteNacional extends PacoteViagem {
     public PacoteNacional() { }
 
     
-    public PacoteNacional(String id, String pais, String clima, String descricao, BigDecimal preco, 
+    public PacoteNacional(String id, String clima, String descricao, BigDecimal preco, 
                           String estadoOrigem, Transporte incluiTransporte, String cidade) {
-        super(id, pais, clima, descricao, preco);
+        super(id, "Brasil", clima, descricao, preco);
         this.estadoOrigem = estadoOrigem;
         this.incluiTransporte = incluiTransporte;
         this.cidade = cidade;
-    }
-
-    @Override
-    public PacoteViagem getClonePreco(BigDecimal novoPreco){
-        return new PacoteNacional(getId(), getPais(), getClima(), getDescricao(), novoPreco,
-                                  getEstadoOrigem(), getIncluiTransporte(), getCidade());
     }
 
     public String getEstadoOrigem() {

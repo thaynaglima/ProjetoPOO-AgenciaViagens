@@ -4,14 +4,17 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
 
 public class Reserva{
 	@NotBlank
+	@Pattern(regexp = "RES\\d+", message = "ID deve seguir o formato RES123")
 	private String id;
 
 	@NotBlank
@@ -27,6 +30,7 @@ public class Reserva{
 	private LocalDate dataReserva;
 	
 	@NotNull
+	@FutureOrPresent(message = "A data de início deve ser igual ou posterior à data atual")
 	private LocalDate dataInicio;
 
 	@Min(value = 1, message = "Pelo menos 1 dia de reserva")
@@ -53,11 +57,15 @@ public class Reserva{
 		this.pessoasViagem = pessoasViagem;
 		this.pacoteId = pacoteId;
 		this.dataReserva = dataReserva;
+
+		if (dataInicio != null && dataReserva != null && dataInicio.isBefore(dataReserva)) {
+            throw new IllegalArgumentException("A data de início não pode ser anterior à data da reserva");
+        }
 		this.dataInicio = dataInicio;
 		this.quantidadeDias = quantidadeDias;
 		this.formaPagamento = formaPagamento;
 		this.status = status;
-		this.precoFinal = precoFinal;
+		this.precoFinal = Objects.requireNonNullElse(precoFinal, BigDecimal.ZERO);
 	}
 
 	public String getId() { 
@@ -94,7 +102,10 @@ public class Reserva{
 		return dataInicio; }
 
     public void setDataInicio(LocalDate dataInicio) { 
-		this.dataInicio = dataInicio;}
+		if (dataReserva != null && dataInicio != null && dataInicio.isBefore(dataReserva)) {
+            throw new IllegalArgumentException("A data de início não pode ser anterior à data da reserva");
+        }
+        this.dataInicio = dataInicio;}
 
 	public int getQuantidadeDias() {
 		return quantidadeDias;
@@ -119,7 +130,7 @@ public class Reserva{
 		return precoFinal; }
 
     public void setPrecoFinal(BigDecimal precoFinal) { 
-		this.precoFinal = precoFinal; }
+		this.precoFinal = Objects.requireNonNullElse(precoFinal, BigDecimal.ZERO); }
 
     @Override
     public boolean equals(Object o) {

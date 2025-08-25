@@ -1,17 +1,14 @@
-package com.exemplo.agencia.service;
+package com.exemplo.agencia.util;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
-@Service
 public class ArquivoUtils {
     static String caminhoBase = "src/main/resources/templates/";
 

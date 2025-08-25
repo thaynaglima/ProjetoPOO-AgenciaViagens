@@ -1,4 +1,4 @@
-package com.exemplo.agencia.service;
+package com.exemplo.agencia.util;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -68,7 +68,14 @@ public class BancoDeDadosSimulado {
 
     // 🔹 Converte uma linha do arquivo em um objeto Cliente
     public Cliente stringParaCliente(String[] dados) {
-        return new Cliente(dados[0], dados[1], dados[2], dados[3], LocalDate.parse(dados[4]), dados[5]);
+        if (dados.length < 6) {
+        throw new IllegalArgumentException("Linha de cliente inválida, campos insuficientes");
+        }
+        try {
+            return new Cliente(dados[0], dados[1], dados[2], dados[3], LocalDate.parse(dados[4]), dados[5]);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Erro ao converter linha de cliente: " + e.getMessage(), e);
+        }
     }
 
     // 🔹 Converte Cliente em String[] para salvar no arquivo
@@ -84,13 +91,20 @@ public class BancoDeDadosSimulado {
 
     // 🔹 Converte uma linha do arquivo em um objeto Pacote
     public PacoteViagem stringParaPacote(String[] dados) {
-        if (dados[1].equals("Brasil"))
-            return new PacoteNacional(dados[0], dados[1], dados[2], dados[3],
-                    BigDecimal.valueOf(Double.parseDouble(dados[4])), dados[5], Transporte.valueOf(dados[6]), dados[7]);
-        else
-            return new PacoteInternacional(dados[0], dados[1], dados[2], dados[3],
-                    BigDecimal.valueOf(Double.parseDouble(dados[4])), Visto.valueOf(dados[5]), dados[6], dados[7]);
-    };
+        if (dados.length < 8) {
+            throw new IllegalArgumentException("Linha de pacote inválida, campos insuficientes");
+        }
+        try {
+            if (dados[1].equals("Brasil"))
+                return new PacoteNacional(dados[0], dados[2], dados[3],
+                        new BigDecimal(dados[4]), dados[5], Transporte.valueOf(dados[6]), dados[7]);
+            else
+                return new PacoteInternacional(dados[0], dados[1], dados[2], dados[3],
+                        new BigDecimal(dados[4]), Visto.valueOf(dados[5]), dados[6], dados[7]);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Erro ao converter linha de pacote: " + e.getMessage(), e);
+        }
+    }
 
     // 🔹 Converte Pacote em String[] para salvar no arquivo
     public String[] pacoteParaString(PacoteViagem pacote) {
@@ -111,9 +125,16 @@ public class BancoDeDadosSimulado {
 
     // 🔹 Converte uma linha do arquivo em um objeto Reserva
     public Reserva stringParaReserva(String[] dados) {
-        return new Reserva(dados[0], dados[1], Integer.parseInt(dados[2]), dados[3],
-                LocalDate.parse(dados[4]), LocalDate.parse(dados[5]), Integer.parseInt(dados[6]),
-                FormaPagamento.valueOf(dados[7]), StatusReserva.valueOf(dados[7]), BigDecimal.valueOf(Double.parseDouble(dados[9])));
+        if (dados.length < 10) {
+            throw new IllegalArgumentException("Linha de reserva inválida, campos insuficientes");
+        }
+        try {
+            return new Reserva(dados[0], dados[1], Integer.parseInt(dados[2]), dados[3],
+                    LocalDate.parse(dados[4]), LocalDate.parse(dados[5]), Integer.parseInt(dados[6]),
+                    FormaPagamento.valueOf(dados[7]), StatusReserva.valueOf(dados[8]), new BigDecimal(dados[9]));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Erro ao converter linha de reserva: " + e.getMessage(), e);
+        }
     }
 
     // 🔹 Converte Pacote em String[] para salvar no arquivo

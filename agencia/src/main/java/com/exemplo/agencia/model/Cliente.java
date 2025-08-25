@@ -6,12 +6,8 @@ import java.util.Objects;
 
 /**
  * Entidade de domínio para o cliente do sistema.
- * Observação: senha em texto puro é apenas para fins didáticos.
  */
 public class Cliente {
-
-    public static final String Service = null;
-
     @NotBlank
     private String nome;
 
@@ -30,8 +26,7 @@ public class Cliente {
     private LocalDate dataNascimento;
 
     @NotBlank
-    // Aceita números, +, espaço, parênteses e hífen (simplificado)
-    @Pattern(regexp = "\\\\d{11}", message = "Telefone deve conter 11 dígitos numéricos")
+    @Pattern(regexp = "\\d{11}", message = "Telefone deve conter 11 dígitos numéricos")
     private String telefone;
 
     public Cliente() { }

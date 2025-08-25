@@ -1,10 +1,13 @@
 package com.exemplo.agencia.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.exemplo.agencia.model.PacoteViagem;
 import com.exemplo.agencia.service.PacoteService;
@@ -113,17 +116,23 @@ public class PacoteController {
         return "pacotes";
     }
 
-    @GetMapping("/alta-temporada")
-    public String listarPacotesAlta(Model model) {
-        List<PacoteViagem> pacotesAlta = pacoteService.getPacotesAltaTemp();
-        model.addAttribute("Pacotes", pacotesAlta);
-        return "pacotes"; 
+    // Endpoint para obter preço na alta temporada pelo ID do pacote
+    @GetMapping("/{id}/preco-alta-temporada")
+    public ResponseEntity<BigDecimal> getPrecoAltaTemporada(@PathVariable("id") String pacoteId) {
+        BigDecimal preco = pacoteService.getPrecoAltaTemp(pacoteId);
+        if (preco == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(preco);
     }
 
-    @GetMapping("/baixa-temporada")
-    public String listarPacotesBaixa(Model model) {
-        List<PacoteViagem> pacotesBaixa = pacoteService.getPacotesBaixaTemp();
-        model.addAttribute("Pacotes", pacotesBaixa);
-        return "pacotes"; 
+    // Endpoint para obter preço na baixa temporada pelo ID do pacote
+    @GetMapping("/{id}/preco-baixa-temporada")
+    public ResponseEntity<BigDecimal> getPrecoBaixaTemporada(@PathVariable("id") String pacoteId) {
+        BigDecimal preco = pacoteService.getPrecoBaixaTemp(pacoteId);
+        if (preco == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(preco);
     }
 }
