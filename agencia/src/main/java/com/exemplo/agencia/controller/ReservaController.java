@@ -70,6 +70,6 @@ public class ReservaController {
         // Adiciona atributos para a View de confirmação
         model.addAttribute("reserva", reserva);
         model.addAttribute("pacote", pacoteSelecionado);
-        return "Reserva cadastrada com sucesso!";
+        return "redirect:/historico-reservas";
     }
 }

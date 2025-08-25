@@ -44,52 +44,13 @@
                                 <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
                                     JS
                                 </div>
-                                <button class="text-red-600 hover:text-red-800" onclick="logout()" title="Sair">
+                                <button class="text-red-600 hover:text-red-800" title="Sair">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button class="p-2 rounded-md text-gray-600 hover:text-blue-600" id="mobile-menu-btn">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                        <svg class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a th:href="@{/}" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
-                <a th:href="@{/pacotesTodos}" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
-                <a th:href="@{/cadastro}" class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-cadastro">Cadastro</a>
-                <a th:href="@{/reserva}" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-reserva">Reserva</a>
-                <a th:href="@{/historico-reservas}" class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="mobile-nav-historico">Minhas Reservas</a>
-                <a th:href="@{/perfil}" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="mobile-nav-perfil">Meu Perfil</a>
-                
-                <div class="border-t pt-2 mt-2" id="mobile-auth-section">
-                    <div class="space-y-2" id="mobile-user-menu">
-                        <div class="px-3 py-2">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm" id="mobile-user-avatar">JS</div>
-                                <div>
-                                    <p class="text-sm font-medium" id="mobile-user-name">João Silva</p>
-                                    <p class="text-xs text-gray-600" id="mobile-user-email">joao@example.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="w-full text-left px-3 py-2 rounded-md text-red-600 hover:bg-red-50" onclick="logout()">Sair</button>
                     </div>
                 </div>
             </div>
@@ -144,11 +105,6 @@
                         </div>
                     </div>
 
-                    <div>
-                        <label class="text-sm text-gray-600">Membro desde</label>
-                        <p class="font-medium" id="profile-member-since">15/01/2023</p>
-                    </div>
-
                     <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mt-4">
                         <div class="text-sm text-blue-800">
                             <strong>📋 Importante:</strong> Para alterar suas informações pessoais (nome, CPF, telefone), entre em contato conosco através do email contato@viagemtop.com.br ou pelo telefone (11) 1234-5678.
@@ -166,7 +122,7 @@
                         </svg>
                         <h2 class="text-xl font-medium">Email</h2>
                     </div>
-                    <button class="btn-secondary text-sm" onclick="toggleEmailEdit()" id="edit-email-btn">
+                    <button class="btn-secondary text-sm" id="edit-email-btn">
                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                         </svg>
@@ -202,7 +158,7 @@
                                 </svg>
                                 Salvar
                             </button>
-                            <button type="button" class="btn-secondary text-sm" onclick="cancelEmailEdit()">
+                            <button type="button" class="btn-secondary text-sm">
                                 <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>
@@ -222,7 +178,7 @@
                         </svg>
                         <h2 class="text-xl font-medium">Senha</h2>
                     </div>
-                    <button class="btn-secondary text-sm" onclick="togglePasswordEdit()" id="edit-password-btn">
+                    <button class="btn-secondary text-sm" id="edit-password-btn">
                         <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
                         </svg>
@@ -245,7 +201,7 @@
                             <div class="relative">
                                 <input type="password" id="current-password" name="currentPassword" required
                                        class="form-input pr-10" placeholder="Digite sua senha atual">
-                                <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" onclick="togglePasswordVisibility('current-password')">
+                                <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -262,7 +218,7 @@
                                 <div class="relative">
                                     <input type="password" id="new-password" name="newPassword" required
                                            class="form-input pr-10" placeholder="Digite a nova senha">
-                                    <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" onclick="togglePasswordVisibility('new-password')">
+                                    <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" >
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -278,7 +234,7 @@
                                 <div class="relative">
                                     <input type="password" id="confirm-password" name="confirmPassword" required
                                            class="form-input pr-10" placeholder="Confirme a nova senha">
-                                    <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" onclick="togglePasswordVisibility('confirm-password')">
+                                    <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
                                         <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -295,7 +251,7 @@
                                 </svg>
                                 Salvar Nova Senha
                             </button>
-                            <button type="button" class="btn-secondary text-sm" onclick="cancelPasswordEdit()">
+                            <button type="button" class="btn-secondary text-sm">
                                 <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                 </svg>

@@ -32,16 +32,17 @@
                     <a th:href="@{/cadastro}"
                         class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                         id="nav-cadastro">Cadastro</a>
+                    <div th:if="${session.clienteLogado != null}"></div>
                     <a th:href="@{/reserva}"
-                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                         id="nav-reserva">Reserva</a>
                     <a th:href="@{/historico-reservas}"
-                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                         id="nav-historico">Minhas Reservas</a>
                     <a th:href="@{/perfil}"
-                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
                         id="nav-perfil">Meu Perfil</a>
-
+                    </div>
                     <!-- Login/User Menu -->
                     <div id="auth-section">
                         <a th:href="@{/login}"
@@ -61,7 +62,7 @@
                                     id="user-avatar">
                                     JS
                                 </div>
-                                <button class="text-red-600 hover:text-red-800" onclick="logout()" title="Sair">
+                                <button class="text-red-600 hover:text-red-800" title="Sair">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
@@ -70,62 +71,6 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button class="p-2 rounded-md text-gray-600 hover:text-blue-600" id="mobile-menu-btn">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                        <svg class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                            id="close-icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation -->
-        <div class="md:hidden bg-white border-t hidden" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <a th:href="@{/}" class="block px-3 py-2 rounded-md text-blue-600 bg-blue-50">Início</a>
-                <a th:href="@{/pacotesTodos}"
-                    class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
-                <a th:href="@{/cadastro}"
-                    class="block px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
-                    id="mobile-nav-cadastro">Cadastro</a>
-                <a th:href="@{/reserva}"
-                    class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
-                    id="mobile-nav-reserva">Reserva</a>
-                <a th:href="@{/historico-reservas}"
-                    class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
-                    id="mobile-nav-historico">Minhas Reservas</a>
-                <a th:href="@{/perfil}"
-                    class="hidden px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
-                    id="mobile-nav-perfil">Meu Perfil</a>
-
-                <div class="border-t pt-2 mt-2" id="mobile-auth-section">
-                    <a th:href="@{/login}" class="block px-3 py-2 rounded-md bg-blue-600 text-white"
-                        id="mobile-login-btn">Entrar</a>
-
-                    <div class="hidden space-y-2" id="mobile-user-menu">
-                        <div class="px-3 py-2">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm"
-                                    id="mobile-user-avatar">JS</div>
-                                <div>
-                                    <p class="text-sm font-medium" id="user-avatar">Usuário</p>
-                                    <p class="text-xs text-gray-600" id="user-avatar">email@example.com</p>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="w-full text-left px-3 py-2 rounded-md text-red-600 hover:bg-red-50"
-                            onclick="logout()">Sair</button>
                     </div>
                 </div>
             </div>
@@ -255,7 +200,9 @@
                     </div>
                 </div>
             </div>
-
+            <div th:if="${#lists.isEmpty(pacotes)}">
+                <p>Nenhum pacote disponível no momento.</p>
+            </div>
             <div class="text-center mt-12">
                 <a th:href="@{/pacotesTodos}"
                     class="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors">

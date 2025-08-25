@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.exemplo.agencia.model.PacoteViagem;
 import com.exemplo.agencia.service.PacoteService;
@@ -43,79 +44,48 @@ public class PacoteController {
         return "index"; // -> index.html
     }
 
-        @GetMapping("/pacotesNacionais")
-        public String filtrarPacotesNacionais(Model model) {
-            List<PacoteViagem> nacionais  = pacoteService.getPacotesNacionais();
-            model.addAttribute("pacotes", nacionais);
-            return "pacotes"; 
-    }
+    @GetMapping("/pacotesFiltrados")
+    public String filtrarPacotes(@RequestParam(required = false) String nome,
+                                @RequestParam(required = false) String categoria,
+                                @RequestParam(required = false) String preco,
+                                @RequestParam(required = false) String ordem,
+                                Model model) {
 
-    @GetMapping("/pacotesInternacionais")
-    public String filtrarPacotesInternacionais(Model model){
-        List<PacoteViagem> intermacionais = pacoteService.getPacotesInternacionais();
-        model.addAttribute("pacotes", intermacionais);
+        List<PacoteViagem> pacotes = pacoteService.getPacotes();
+
+        // Filtro por nome
+        if (nome != null && !nome.isBlank()) {
+            pacotes = pacoteService.getPesquisarNome(nome);
+        }
+
+        // Filtro por categoria
+        if ("nacional".equals(categoria)) {
+            pacotes = pacoteService.getPacotesNacionais();
+        } else if ("internacional".equals(categoria)) {
+            pacotes = pacoteService.getPacotesInternacionais();
+        }
+
+        // Filtro por preço
+        if ("baixo".equals(preco)) {
+            pacotes = pacoteService.getPrecosAte2k();
+        } else if ("medio".equals(preco)) {
+            pacotes = pacoteService.getPrecosAte5k();
+        } else if ("alto".equals(preco)) {
+            pacotes = pacoteService.getPrecosMaior5k();
+        }
+
+        // Ordenação
+        if ("nome".equals(ordem)) {
+            pacotes = pacoteService.getOrdenarAtoZ();
+        } else if ("menor".equals(ordem)) {
+            pacotes = pacoteService.getMenorPreco();
+        } else if ("maior".equals(ordem)) {
+            pacotes = pacoteService.getMaiorPreco();
+        }
+
+        model.addAttribute("pacotes", pacotes);
         return "pacotes";
     }
-    @GetMapping("/pacotesAbaixo2k")
-    public String filtrarPacotesAbaixo2k(Model model){
-        List<PacoteViagem> abaixo2k = pacoteService.getPrecosAte2k();
-        model.addAttribute("pacotes", abaixo2k);
-        return "pacotes";
-    }
-
-    @GetMapping("/pacotesEntre2kE5k")
-    public String filtrarPacotesEntre2kE5k(Model model){
-        List<PacoteViagem> entre2kE5k = pacoteService.getPrecosAte5k();
-        model.addAttribute("pacotes", entre2kE5k);
-        return "pacotes";
-    }
-
-    @GetMapping("/pacotesAcima5k")
-    public String filtrarPacotesAcima5k(Model model){
-        List<PacoteViagem> acima5k = pacoteService.getPrecosMaior5k();
-        model.addAttribute("pacotes", acima5k);
-        return "pacotes";
-    }
-
-    @GetMapping("/ordemAtoZ")
-    public String filtrarAtoZ (Model model){
-        List<PacoteViagem> filterAtoZ = pacoteService.getOrdenarAtoZ();
-        model.addAttribute("pacotes", filterAtoZ);
-        return "pacotes";
-    }
-
- @GetMapping("/ordemPrecoMenorPMaior")
-    public String filtrarPrecoMenorpMaior (Model model){
-        List<PacoteViagem> menorPmaior = pacoteService.getMenorPreco();
-        model.addAttribute("pacotes", menorPmaior);
-        return "pacotes";
-    }
-
-    @GetMapping("/ordemPreco")
-    public String filtrarPrecoMaiorpMenor (Model model){
-        List<PacoteViagem> filterPrice = pacoteService.getMenorPreco();
-        model.addAttribute("pacotes", filterPrice);
-        return "pacotes";
-    }
-
-    @GetMapping("/pesquisarId")
-    public String PesquisarId(String id, Model model){
-        PacoteViagem pacote = pacoteService.getBuscarPorId(id);
-
-        if(pacote != null)
-        model.addAttribute("pacote", pacote);
-            else
-            model.addAttribute("pacote", null);
-        return "pacotes";
-    }
-
-    @GetMapping("/pesquisar")
-    public String PesquisarNome (String nome, Model model){
-        List<PacoteViagem> filtroPesquisa = pacoteService.getPesquisarNome(nome);
-        model.addAttribute("pacotes", filtroPesquisa);
-        return "pacotes";
-    }
-
     // Endpoint para obter preço na alta temporada pelo ID do pacote
     @GetMapping("/{id}/preco-alta-temporada")
     public ResponseEntity<BigDecimal> getPrecoAltaTemporada(@PathVariable("id") String pacoteId) {
@@ -134,5 +104,15 @@ public class PacoteController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(preco);
+    }
+
+    @GetMapping("/detalhes-pacote/{id}")
+    public String detalhesPacote(@PathVariable String id, Model model) {
+        PacoteViagem pacote = pacoteService.getBuscarPorId(id);
+        if (pacote == null) {
+            return "erro-pacote"; // página de erro se o pacote não existir
+        }
+        model.addAttribute("pacote", pacote);
+        return "detalhes-pacote";
     }
 }

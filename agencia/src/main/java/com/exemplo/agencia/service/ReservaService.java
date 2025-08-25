@@ -2,7 +2,9 @@ package com.exemplo.agencia.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.Month;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import com.exemplo.agencia.model.PacoteViagem;
@@ -79,10 +81,27 @@ public class ReservaService {
     return "RES" + String.format("%03d", maxId + 1); // Ex: R005
     }
 
+    Set<Month> mesesAltaTemporada = Set.of(
+        Month.NOVEMBER,
+        Month.DECEMBER,
+        Month.JANUARY,
+        Month.JULY
+    );
+    Set<Month> mesesBaixaTemporada = Set.of(
+        Month.MARCH,
+        Month.APRIL,
+        Month.MAY,
+        Month.SEPTEMBER
+    );
+
     public BigDecimal calcularPrecoFinal(Reserva reserva, PacoteViagem pacote) {
     if (pacote == null) return BigDecimal.ZERO;
-
-        BigDecimal precoBase = pacote.getPreco();
+    BigDecimal precoBase = pacote.getPreco();
+        if(mesesAltaTemporada.contains(reserva.getDataInicio().getMonth()))
+            precoBase = pacote.getPrecoAltaTemporada();
+        else if(mesesBaixaTemporada.contains(reserva.getDataInicio().getMonth()))
+            precoBase = pacote.getPrecoBaixaTemporada();
+            
         BigDecimal preco = precoBase
                 .multiply(BigDecimal.valueOf(reserva.getPessoasViagem()))
                 .multiply(BigDecimal.valueOf(reserva.getQuantidadeDias()));
