@@ -22,8 +22,8 @@ public class ClienteService {
 
   // Constantes para validação
   private static final Pattern EMAIL_PATTERN = Pattern.compile("^[\\w-.]+@[\\w-]+(\\.[\\w-]+)+$");
-  private static final Pattern CPF_PATTERN = Pattern.compile("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}");
-  private static final Pattern TELEFONE_PATTERN = Pattern.compile("\\(\\d{2}\\) \\d{4,5}-\\d{4}");
+  private static final Pattern CPF_PATTERN = Pattern.compile("\\d{11}");
+  private static final Pattern TELEFONE_PATTERN = Pattern.compile("\\d{10,11}"); // 10 ou 11 dígitos
 
   public ClienteService() {
     this.bancoCliente = new BancoDeDadosSimulado();
@@ -91,15 +91,23 @@ public class ClienteService {
     if (cliente.getSenha() == null || cliente.getSenha().length() < 8) {
       throw new IllegalArgumentException("Senha deve ter no mínimo 8 caracteres");
     }
-    if (cliente.getCpf() == null || !CPF_PATTERN.matcher(cliente.getCpf()).matches()) {
-      throw new IllegalArgumentException("CPF inválido");
+
+   // Normaliza CPF (remove tudo que não é número)
+    String cpfNumeros = cliente.getCpf().replaceAll("\\D", "");
+    if (!CPF_PATTERN.matcher(cpfNumeros).matches()) {
+        throw new IllegalArgumentException("CPF inválido");
     }
+    cliente.setCpf(cpfNumeros);
+
+
     if (cliente.getDataNascimento() == null || cliente.getDataNascimento().isAfter(LocalDate.now())) {
       throw new IllegalArgumentException("Data de nascimento inválida");
     }
-    if (cliente.getTelefone() == null || !TELEFONE_PATTERN.matcher(cliente.getTelefone()).matches()) {
-      throw new IllegalArgumentException("Telefone inválido");
+   String telefoneNumeros = cliente.getTelefone().replaceAll("\\D", "");
+    if (!TELEFONE_PATTERN.matcher(telefoneNumeros).matches()) {
+        throw new IllegalArgumentException("Telefone inválido");
     }
+    cliente.setTelefone(telefoneNumeros);
   }
    private void salvarClientesNoArquivo() {
     List<String[]> dados = new ArrayList<>();

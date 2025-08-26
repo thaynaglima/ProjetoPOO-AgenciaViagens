@@ -51,15 +51,24 @@ public class ClienteController {
     if (!senha.equals(confirmPassword)) {
         return "As senhas não conferem";
     }
-    if (!cpf.matches("\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}")) {
+    cpf = cpf.replaceAll("\\D", "");
+
+    
+    if (!cpf.matches("\\d{11}")) {
         return "CPF inválido";
     }
+
     if (dataNascimento == null || dataNascimento.isAfter(LocalDate.now())) {
         return "Data de nascimento inválida";
     }
-    if (!telefone.matches("\\(\\d{2}\\) \\d{4,5}-\\d{4}")) {
+    
+    telefone = telefone.replaceAll("\\D", "");
+
+// Verifica se tem 11 dígitos
+    if (!telefone.matches("\\d{11}")) {
         return "Telefone inválido";
-    }
+}
+
     if (!aceitarTermos) {
         return "Você deve aceitar os termos";
     }
