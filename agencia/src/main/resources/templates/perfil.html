@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Perfil - ViagemTop</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body class="min-h-screen bg-white">
     <!-- Navigation -->
@@ -42,7 +42,7 @@
                         <div class="relative" id="user-menu">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
-                                    JS
+                                    <span th:text="${cliente.iniciais}">JS</span>
                                 </div>
                                 <button class="text-red-600 hover:text-red-800" title="Sair">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,9 +65,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
             </svg>
             <h1 class="text-3xl font-bold mb-2">Meu Perfil</h1>
-            <p class="text-gray-600">
-                Gerencie suas informações pessoais e configurações de conta
-            </p>
+            <p class="text-gray-600">Gerencie suas informações pessoais e configurações de conta</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -84,19 +82,19 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="text-sm text-gray-600">Nome Completo</label>
-                            <p class="font-medium" id="profile-name" th:text= "${cliente.nome}">João Silva</p>
+                            <p class="font-medium" id="profile-name" th:text="${cliente.nome}">João Silva</p>
                         </div>
                         
                         <div>
                             <label class="text-sm text-gray-600">CPF</label>
-                            <p class="font-medium" id="profile-cpf"  th: text= "${cliente.cpf}">123.456.789-00</p>
+                            <p class="font-medium" id="profile-cpf" th:text="${cliente.cpf}">123.456.789-00</p>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="text-sm text-gray-600">Data de Nascimento</label>
-                            <p class="font-medium" id="profile-birthdate"  th:text= "${cliente.dataNascimento}">15/03/1985</p>
+                            <p class="font-medium" id="profile-birthdate" th:text="${cliente.dataNascimento}">15/03/1985</p>
                         </div>
                         
                         <div>
@@ -133,39 +131,7 @@
                 <!-- Email Display -->
                 <div id="email-display">
                     <label class="text-sm text-gray-600">Email atual</label>
-                    <p class="font-medium" id="profile-email">cliente@example.com</p>
-                </div>
-
-                <!-- Email Edit Form -->
-                <div id="email-edit" class="hidden">
-                    <form id="email-form" class="space-y-4">
-                        <div>
-                            <label for="new-email" class="block text-sm font-medium text-gray-700 mb-1">Novo Email</label>
-                            <input type="email" id="new-email" name="newEmail" required
-                                   class="form-input" placeholder="seu.novo@email.com">
-                        </div>
-
-                        <div>
-                            <label for="confirm-email" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Novo Email</label>
-                            <input type="email" id="confirm-email" name="confirmEmail" required
-                                   class="form-input" placeholder="Confirme o novo email">
-                        </div>
-
-                        <div class="flex gap-2">
-                            <button type="submit" class="btn-primary text-sm">
-                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                Salvar
-                            </button>
-                            <button type="button" class="btn-secondary text-sm">
-                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                Cancelar
-                            </button>
-                        </div>
-                    </form>
+                    <p class="font-medium" id="profile-email" th:text="${cliente.email}">cliente@example.com</p>
                 </div>
             </div>
 
@@ -192,74 +158,6 @@
                     <p class="font-medium">••••••••••</p>
                     <p class="text-xs text-gray-500 mt-1">Última alteração há 30 dias</p>
                 </div>
-
-                <!-- Password Edit Form -->
-                <div id="password-edit" class="hidden">
-                    <form id="password-form" class="space-y-4">
-                        <div>
-                            <label for="current-password" class="block text-sm font-medium text-gray-700 mb-1">Senha Atual</label>
-                            <div class="relative">
-                                <input type="password" id="current-password" name="currentPassword" required
-                                       class="form-input pr-10" placeholder="Digite sua senha atual">
-                                <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
-                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <hr class="border-gray-200">
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label for="new-password" class="block text-sm font-medium text-gray-700 mb-1">Nova Senha</label>
-                                <div class="relative">
-                                    <input type="password" id="new-password" name="newPassword" required
-                                           class="form-input pr-10" placeholder="Digite a nova senha">
-                                    <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600" >
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="password-strength mt-1" id="new-password-strength"></div>
-                                <p class="text-xs text-gray-500 mt-1">Mínimo 8 caracteres, incluindo maiúscula, minúscula e número</p>
-                            </div>
-
-                            <div>
-                                <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Nova Senha</label>
-                                <div class="relative">
-                                    <input type="password" id="confirm-password" name="confirmPassword" required
-                                           class="form-input pr-10" placeholder="Confirme a nova senha">
-                                    <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
-                                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-2">
-                            <button type="submit" class="btn-primary text-sm">
-                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                Salvar Nova Senha
-                            </button>
-                            <button type="button" class="btn-secondary text-sm">
-                                <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                </svg>
-                                Cancelar
-                            </button>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
@@ -275,9 +173,7 @@
                         </svg>
                         <span class="font-bold text-lg">ViagemTop</span>
                     </div>
-                    <p class="text-gray-400">
-                        Sua agência de viagens de confiança há mais de 15 anos.
-                    </p>
+                    <p class="text-gray-400">Sua agência de viagens de confiança há mais de 15 anos.</p>
                 </div>
                 <div>
                     <h4 class="font-medium mb-4">Contato</h4>

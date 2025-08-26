@@ -84,12 +84,17 @@ public class ClienteController {
     }
     
      //buscar os dados do cliente
-    @GetMapping("/perfil/{cpf}")
+     @GetMapping("/perfil/{cpf}")
     public String identificarPerfil(@PathVariable String cpf, Model model){
-        Cliente cliente = clienteService.buscarPorCpf(cpf);
-        model.addAttribute("cliente",cliente );
-        return "perfil";
+    Cliente cliente = clienteService.buscarPorCpf(cpf);
+    if (cliente == null) {
+        // redireciona para uma página de erro ou login
+        return "redirect:/login";
     }
+    model.addAttribute("cliente", cliente);
+    return "perfil";
+}
+
 
     // Alterar Email
     @PostMapping("/{cpf}/alterar-email")

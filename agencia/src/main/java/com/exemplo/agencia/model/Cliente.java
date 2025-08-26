@@ -88,4 +88,19 @@ public class Cliente {
     public int hashCode() {
         return Objects.hash(cpf);
     }
+
+    public String getIniciais() {
+    if (nome == null || nome.isBlank()) {
+        return "";
+    }
+    String[] partes = nome.split(" ");
+    StringBuilder iniciais = new StringBuilder();
+    for (String parte : partes) {
+        if (!parte.isBlank()) {
+            iniciais.append(parte.charAt(0));
+        }
+    }
+    return iniciais.toString().toUpperCase();
+}
+
 }
