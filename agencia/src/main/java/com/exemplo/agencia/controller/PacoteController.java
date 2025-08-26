@@ -3,7 +3,6 @@ package com.exemplo.agencia.controller;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,32 +85,27 @@ public class PacoteController {
         model.addAttribute("pacotes", pacotes);
         return "pacotes";
     }
-    // Endpoint para obter preço na alta temporada pelo ID do pacote
-    @GetMapping("/{id}/preco-alta-temporada")
-    public ResponseEntity<BigDecimal> getPrecoAltaTemporada(@PathVariable("id") String pacoteId) {
-        BigDecimal preco = pacoteService.getPrecoAltaTemp(pacoteId);
-        if (preco == null) {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/{id}")
+    public String getPacoteDetalhes(@PathVariable String id, Model model) {
+        PacoteViagem pacote = pacoteService.getBuscarPorId(id);
+        if (pacote == null) {
+            return "redirect:/pacotes";
         }
-        return ResponseEntity.ok(preco);
-    }
 
-    // Endpoint para obter preço na baixa temporada pelo ID do pacote
-    @GetMapping("/{id}/preco-baixa-temporada")
-    public ResponseEntity<BigDecimal> getPrecoBaixaTemporada(@PathVariable("id") String pacoteId) {
-        BigDecimal preco = pacoteService.getPrecoBaixaTemp(pacoteId);
-        if (preco == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(preco);
+        BigDecimal precoAlta = pacoteService.getPrecoAltaTemp(id);
+        BigDecimal precoBaixa = pacoteService.getPrecoBaixaTemp(id);
+      
+
+        model.addAttribute("pacote", pacote);
+        model.addAttribute("precoAlta", precoAlta);
+        model.addAttribute("precoBaixa", precoBaixa);
+
+        return "detalhes-pacote";
     }
 
     @GetMapping("/detalhes-pacote/{id}")
     public String detalhesPacote(@PathVariable String id, Model model) {
         PacoteViagem pacote = pacoteService.getBuscarPorId(id);
-        if (pacote == null) {
-            return "erro-pacote"; // página de erro se o pacote não existir
-        }
         model.addAttribute("pacote", pacote);
         return "detalhes-pacote";
     }

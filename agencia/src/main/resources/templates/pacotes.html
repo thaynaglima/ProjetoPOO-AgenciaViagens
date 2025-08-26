@@ -140,15 +140,14 @@
             </div>
 
             <!-- Package Grid -->
-            <div id="packages-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Lista de pacotes dinamicamente -->
                 <div id="packages-grid" th:unless="${#lists.isEmpty(pacotes)}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div th:each="pacote : ${pacotes}" class="bg-white rounded-lg shadow-md overflow-hidden">
                         <img th:src="${pacote.imagemUrl}" alt="Imagem do pacote" class="w-full h-48 object-cover">
                         <div class="p-4">
-                            <h2 class="text-xl font-semibold mb-2" th:text="${pacote.destino}">Destino</h2>
-                            <p class="text-gray-600 mb-2" th:text="'Duração: ' + ${pacote.dias} + ' dias'">Duração</p>
-                            <p class="text-gray-800 font-bold mb-2" th:text="'R$ ' + ${pacote.precoBase}">Preço</p>
+                            <h2 class="text-xl font-semibold mb-2" th:text="${pacote.pais}">Destino</h2>
+                            <p class="text-gray-600 mb-2" th:text="'Clima: ' + ${pacote.clima}">Clima</p>
+                            <p class="text-gray-800 font-bold mb-2" th:text="'R$ ' + ${pacote.preco}">Preço</p>
                             <a th:href="@{'/detalhes-pacote/' + ${pacote.id}}"
                             class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                                 Ver Detalhes
