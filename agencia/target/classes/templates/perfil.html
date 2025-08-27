@@ -27,24 +27,25 @@
                     <a th:href="@{/pacotesTodos}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
                     <a th:href="@{/cadastro}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
                     <a th:href="@{/reserva}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-reserva">Reserva</a>
-                    <a th:href="@{/historico-reservas/{clienteNome}(clienteNome=${cliente.nome})}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-historico">Minhas Reservas</a>
-                    <a th:href="@{/perfil}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="nav-perfil">Meu Perfil</a>
+                    <a th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-historico">Minhas Reservas</a>
+                    <a th:href="@{/clientes/perfil}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="nav-perfil">Meu Perfil</a>
                     
                     <!-- Login/User Menu -->
+                    <!-- Botão login só aparece se não tiver cliente -->
                     <div id="auth-section">
-                        <a th:href="@{/login}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 hidden" id="login-btn">
+                        <a th:if="${cliente == null}" th:href="@{/login}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                             </svg>
                             Entrar
                         </a>
-                        
-                        <div class="relative" id="user-menu">
+                        <!-- Menu do usuário aparece só se logado -->
+                        <div th:if="${cliente != null}" class="relative" id="user-menu">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
                                     <span th:text="${cliente.iniciais}">JS</span>
                                 </div>
-                                <button class="text-red-600 hover:text-red-800" title="Sair">
+                                <button th:href="@{/logout}" class="text-red-600 hover:text-red-800" title="Sair">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
@@ -120,18 +121,17 @@
                         </svg>
                         <h2 class="text-xl font-medium">Email</h2>
                     </div>
-                    <button class="btn-secondary text-sm" id="edit-email-btn">
-                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                        </svg>
-                        Alterar
-                    </button>
                 </div>
 
                 <!-- Email Display -->
                 <div id="email-display">
-                    <label class="text-sm text-gray-600">Email atual</label>
-                    <p class="font-medium" id="profile-email" th:text="${cliente.email}">cliente@example.com</p>
+                    <form th:action="@{/clientes/alterar-email}" method="post">
+                        <label class="text-sm text-gray-600" for="novoEmail">Email atual</label>
+                        <input type="email" name="novoEmail" id="novoEmail" th:value="${cliente.email}"
+                            class="w-full border border-gray-300 rounded-md p-2 mt-1 mb-2" required>
+                        <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Alterar Email</button>
+                    </form>
                 </div>
             </div>
 
@@ -144,19 +144,18 @@
                         </svg>
                         <h2 class="text-xl font-medium">Senha</h2>
                     </div>
-                    <button class="btn-secondary text-sm" id="edit-password-btn">
-                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                        </svg>
-                        Alterar Senha
-                    </button>
                 </div>
 
                 <!-- Password Display -->
                 <div id="password-display">
-                    <label class="text-sm text-gray-600">Senha</label>
-                    <p class="font-medium">••••••••••</p>
-                    <p class="text-xs text-gray-500 mt-1">Última alteração há 30 dias</p>
+                    <form th:action="@{/clientes/alterar-senha}" method="post">
+                        <label class="text-sm text-gray-600" for="novaSenha">Nova senha</label>
+                        <input type="password" name="novaSenha" id="novaSenha"
+                            class="w-full border border-gray-300 rounded-md p-2 mt-1 mb-2" required minlength="8">
+                        <button type="submit"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Alterar Senha</button>
+                    </form>
+                    <p class="text-xs text-gray-500 mt-1">Última alteração há alguns dias</p>
                 </div>
             </div>
         </div>

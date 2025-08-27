@@ -24,10 +24,8 @@ import com.exemplo.agencia.service.ReservaService;
 public class ReservaController {
     @Autowired
     private ReservaService reservaService;
-
     @Autowired
     private PacoteService pacoteService;
-
     @Autowired
     private ClienteService clienteService;
 
@@ -39,11 +37,9 @@ public class ReservaController {
     @GetMapping("/reserva/{pacoteId}")
     public String selecionarPacote(@PathVariable("pacoteId") String pacoteId, Model model) {
         PacoteViagem pacoteSelecionado = pacoteService.getBuscarPorId(pacoteId);
-        
         if (pacoteSelecionado == null) {
             // Se não existir, volta pra lista
-            return "redirect:/pacotes";
-        }
+            return "redirect:/pacotes";}
 
         // guarda no sistema de reservas (poderia ser em sessão)
         reservaService.setPacoteSelecionado(pacoteSelecionado);
@@ -53,6 +49,8 @@ public class ReservaController {
 
         model.addAttribute("pacoteSelecionado", pacoteSelecionado);
         model.addAttribute("reserva", reserva);
+        if (clienteService.getClienteLogado() != null)
+            model.addAttribute("cliente", clienteService.getClienteLogado());
         return "reserva"; 
     }
 
@@ -69,9 +67,10 @@ public class ReservaController {
         reserva.setQuantidadeDias(quantidadeDias);
 
         reservaService.setReservaTemporaria(reserva);
-
         // Adiciona atributos para a View de confirmação
         model.addAttribute("reserva", reserva);
+        if (clienteService.getClienteLogado() != null)
+            model.addAttribute("cliente", clienteService.getClienteLogado());
         return "reserva";
     }
 
@@ -99,6 +98,7 @@ public class ReservaController {
 
         model.addAttribute("reserva", reserva);
         model.addAttribute("pacote", pacoteSelecionado);
+        model.addAttribute("cliente", clienteService.getClienteLogado());
         return "redirect:/historico-reservas";
     }
 
@@ -107,9 +107,7 @@ public class ReservaController {
             @RequestParam(name = "status", required = false, defaultValue = "all") String status,
             @RequestParam(name = "search", required = false) String search,
             Model model) {
-
         Cliente clienteLogado = clienteService.getClienteLogado();
-
         // Buscar apenas reservas do cliente logado
         var reservas = reservaService.getReserva().stream()
                 .filter(r -> r.getClienteNome().equalsIgnoreCase(clienteLogado.getNome()))
@@ -119,8 +117,7 @@ public class ReservaController {
         if (!"all".equalsIgnoreCase(status)) {
             reservas = reservas.stream()
                     .filter(r -> r.getStatus().name().equalsIgnoreCase(status))
-                    .toList();
-        }
+                    .toList();}
 
         // filtro por busca (cliente ou pacote)
         if (search != null && !search.isBlank()) {
@@ -128,8 +125,7 @@ public class ReservaController {
             reservas = reservas.stream()
                     .filter(r -> r.getClienteNome().toLowerCase().contains(termo)
                             || r.getPacoteId().toLowerCase().contains(termo))
-                    .toList();
-        }
+                    .toList();}
 
         long total = reservas.size();
         long confirmadas = reservas.stream()
@@ -138,7 +134,6 @@ public class ReservaController {
         long concluidas = reservas.stream()
                 .filter(r -> r.getStatus() == Reserva.StatusReserva.FINALIZADA)
                 .count();
-
         BigDecimal totalInvestido = reservas.stream()
                 .map(Reserva::getPrecoFinal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -150,6 +145,8 @@ public class ReservaController {
         model.addAttribute("totalInvestido", totalInvestido);
         model.addAttribute("statusSelecionado", status);
         model.addAttribute("searchTerm", search);
+        if (clienteService.getClienteLogado() != null)
+            model.addAttribute("cliente", clienteService.getClienteLogado());
 
         return "historico-reservas"; 
     }

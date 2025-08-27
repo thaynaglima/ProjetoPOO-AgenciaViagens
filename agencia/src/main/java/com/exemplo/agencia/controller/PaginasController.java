@@ -5,19 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PaginasController {
-  @GetMapping("/")
+  /*@GetMapping("/")
   public String index(){
     return "index"; // carrega index.html
-  }
+  }*/
 
   @GetMapping("/cadastro")
   public String cadastro(){
     return "cadastro"; // carrega cadastro.html
-  }
-
-  @GetMapping("/pacotes")
-  public String pacotes(){
-    return "pacotes"; // carrega pacotes.html
   }
 
   @GetMapping("/detalhes-pacote")
@@ -35,8 +30,4 @@ public class PaginasController {
     return "perfil"; // carrega perfil.html
   }
 
-  @GetMapping("/reserva")
-  public String reserva(){
-    return "reserva"; // carrega reserva.html
-  }
 }

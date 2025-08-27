@@ -1,19 +1,19 @@
 package com.exemplo.agencia.util;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.exemplo.agencia.model.Cliente;
 
 @Component
+@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SessaoUsuario {
-    private static SessaoUsuario instancia = new SessaoUsuario();
     private Cliente clienteAtual;
 
-    private SessaoUsuario() {}
-
-    public static SessaoUsuario getInstancia() {
-        return instancia;
-    }
+    // Construtor público sem argumentos (necessário para o Spring)
+    public SessaoUsuario() {}
 
     public Cliente getClienteAtual() {
         return clienteAtual;

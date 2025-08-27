@@ -109,6 +109,8 @@ public class ClienteService {
     }
     cliente.setTelefone(telefoneNumeros);
   }
+
+  
    private void salvarClientesNoArquivo() {
     List<String[]> dados = new ArrayList<>();
     for (Cliente c : bancoCliente.getClientes()) {
@@ -145,11 +147,6 @@ public class ClienteService {
     
   }
 
- /**
- * @param cpf
- * @param novaSenha
- * @return
- */
 public Cliente alterarSenha(String cpf, String novaSenha){
     Cliente cliente = buscarPorCpf(cpf);
 

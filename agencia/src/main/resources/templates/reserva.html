@@ -25,25 +25,26 @@
                 <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
                     <a th:href="@{/}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
                     <a th:href="@{/pacotesTodos}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
-                    <a th:href="@{/cadastro}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
-                    <a th:href="@{/reserva}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50 hidden" id="nav-reserva">Reserva</a>
-                    <a th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-historico">Minhas Reservas</a>
-                    
+                    <a th:if="${cliente == null}"th:href="@{/cadastro}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
+                    <a th:if="${cliente != null}"th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-historico">Minhas Reservas</a>
+                    <a th:if="${cliente != null}" th:href="@{/clientes/perfil}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-perfil">Meu Perfil</a>
+
                     <!-- Login/User Menu -->
+                    <!-- Botão login só aparece se não tiver cliente -->
                     <div id="auth-section">
-                        <a th:href="@{/login}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
+                        <a th:if="${cliente == null}" th:href="@{/login}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                             </svg>
                             Entrar
                         </a>
-                        
-                        <div class="hidden relative" id="user-menu">
+                        <!-- Menu do usuário aparece só se logado -->
+                        <div th:if="${cliente != null}" class="relative" id="user-menu">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
-                                    JS
+                                    <span th:text="${cliente.iniciais}">JS</span>
                                 </div>
-                                <button class="text-red-600 hover:text-red-800" title="Sair">
+                                <button th:href="@{/logout}" class="text-red-600 hover:text-red-800" title="Sair">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
                                     </svg>
