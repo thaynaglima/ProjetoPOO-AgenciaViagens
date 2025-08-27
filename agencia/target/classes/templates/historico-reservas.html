@@ -165,18 +165,10 @@
             <!-- Reservations List -->
             <div id="reservations-grid" class="space-y-6">
                 <div th:each="reserva : ${reservas}" class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
-                    <p class="text-lg font-semibold text-gray-900">
-                        <span th:text="${reserva.clienteNome}">Nome Cliente</span>
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Pacote: <span th:text="${reserva.pacoteId}">ID</span>
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Status: <span th:text="${reserva.status}">Status</span>
-                    </p>
-                    <p class="text-sm text-gray-600">
-                        Valor: <span th:text="${#numbers.formatCurrency(reserva.precoFinal)}"></span>
-                    </p>
+                    <p class="text-lg font-semibold text-gray-900" th:text="${reserva.clienteNome}">Nome Cliente</p>
+                    <p class="text-sm text-gray-600">Pacote: <span th:text="${reserva.pacoteId}">ID</span></p>
+                    <p class="text-sm text-gray-600">Status: <span th:text="${reserva.status}">Status</span></p>
+                    <p class="text-sm text-gray-600">Valor: <span th:text="${#numbers.formatCurrency(reserva.precoFinal)}">R$0,00</span></p>
                 </div>
             </div>
 

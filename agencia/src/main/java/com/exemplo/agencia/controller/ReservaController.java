@@ -108,11 +108,15 @@ public class ReservaController {
             @RequestParam(name = "search", required = false) String search,
             Model model) {
         Cliente clienteLogado = clienteService.getClienteLogado();
+        if (clienteLogado == null) {
+        // Se não estiver logado, redireciona para login
+        return "redirect:/login";
+    }
         // Buscar apenas reservas do cliente logado
         var reservas = reservaService.getReserva().stream()
                 .filter(r -> r.getClienteNome().equalsIgnoreCase(clienteLogado.getNome()))
                 .toList();
-
+        
         // filtro por status
         if (!"all".equalsIgnoreCase(status)) {
             reservas = reservas.stream()
@@ -126,7 +130,8 @@ public class ReservaController {
                     .filter(r -> r.getClienteNome().toLowerCase().contains(termo)
                             || r.getPacoteId().toLowerCase().contains(termo))
                     .toList();}
-
+        
+        // Estatísticas
         long total = reservas.size();
         long confirmadas = reservas.stream()
                 .filter(r -> r.getStatus() == Reserva.StatusReserva.CONFIRMADA)
@@ -137,7 +142,8 @@ public class ReservaController {
         BigDecimal totalInvestido = reservas.stream()
                 .map(Reserva::getPrecoFinal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-
+        
+        // Adicionar atributos para a view
         model.addAttribute("reservas", reservas);
         model.addAttribute("totalReservas", total);
         model.addAttribute("reservasConfirmadas", confirmadas);
@@ -146,7 +152,7 @@ public class ReservaController {
         model.addAttribute("statusSelecionado", status);
         model.addAttribute("searchTerm", search);
         if (clienteService.getClienteLogado() != null)
-            model.addAttribute("cliente", clienteService.getClienteLogado());
+            model.addAttribute("cliente", clienteLogado);
 
         return "historico-reservas"; 
     }
