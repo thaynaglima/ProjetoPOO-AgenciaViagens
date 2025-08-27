@@ -26,7 +26,7 @@
                     <a th:href="@{/}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
                     <a th:href="@{/pacotesTodos}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
                     <a th:href="@{/cadastro}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
-                    <a th:href="@{/reserva}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="nav-reserva">Reserva</a>
+                    <a th:href="@{/reserva}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50 hidden" id="nav-reserva">Reserva</a>
                     <a th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-historico">Minhas Reservas</a>
                     
                     <!-- Login/User Menu -->
@@ -81,17 +81,12 @@
             <div class="mb-8">
                 <div class="flex items-center justify-center space-x-4">
                     <div class="flex items-center">
-                        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">1</div>
-                        <span class="ml-2 text-sm text-blue-600 font-medium">Selecionar Pacote</span>
-                    </div>
-                    <div class="flex-1 h-px bg-gray-300 mx-4"></div>
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">2</div>
+                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">1</div>
                         <span class="ml-2 text-sm text-gray-600">Dados do Passageiro</span>
                     </div>
                     <div class="flex-1 h-px bg-gray-300 mx-4"></div>
                     <div class="flex items-center">
-                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">3</div>
+                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">2</div>
                         <span class="ml-2 text-sm text-gray-600">Pagamento</span>
                     </div>
                 </div>
@@ -100,100 +95,27 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Form Section -->
                 <div class="lg:col-span-2 space-y-8">
-                    <!-- Step 1: Package Selection -->
-                    <div class="bg-white rounded-lg shadow-lg p-6" id="step-1">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">1</div>
-                            <h2 class="text-xl font-medium">Selecione seu Pacote</h2>
-                        </div>
-
-                        <div class="space-y-4" id="packages-list">
-                                <div th:each="pacote : ${pacotes}" 
-                                    class="cursor-pointer border border-gray-200 rounded-lg p-4 hover:border-blue-600 transition-all bg-white">
-                                    <form th:action="@{/reservas/selecionar}" method="post">
-                                        <input type="hidden" name="pacoteId" th:value="${pacote.id}" />
-                                        <div class="flex items-center space-x-4">
-                                            <div class="w-20 h-20 bg-gray-100 rounded-md overflow-hidden">
-                                                <img th:src="@{${pacote.imagemUrl}}" alt="Imagem do Pacote" class="object-cover w-full h-full">
-                                            </div>
-                                            <div class="flex-1">
-                                                <h3 class="text-lg font-semibold" th:text="${pacote.pais}">País</h3>
-                                                <p class="text-gray-500 text-sm" th:text="${pacote.descricao}">Descrição do pacote</p>
-                                                <p class="text-blue-600 font-bold text-sm mt-2" 
-                                                th:text="'R$ ' + ${#numbers.formatDecimal(pacote.preco, 0, 'COMMA', 2, 'POINT')} + ' por pessoa'">
-                                                    R$ 0,00 por pessoa
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="mt-3 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                                            Selecionar este pacote
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                    </div>
-
-                    <!-- Step 2: Passenger Data -->
+                    <!-- Step 1: Passenger Data -->
                     <div class="bg-white rounded-lg shadow-lg p-6 hidden" id="step-2">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">2</div>
                             <h2 class="text-xl font-medium">Dados do Passageiro Principal</h2>
                         </div>
 
-                        <form id="passenger-form" class="space-y-4" th:action="@{/reserva/dados}" method="post" th:object="${reserva}">
-                            <input type="hidden" name="pacoteId" value="1">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="leadPassengerName" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo *</label>
-                                    <input type="text" id="leadPassengerName" name="leadPassengerName" required
-                                           class="form-input" placeholder="Nome completo do passageiro principal">
-                                </div>
-
-                                <div>
-                                    <label for="leadPassengerEmail" class="block text-sm font-medium text-gray-700 mb-1">Email *</label>
-                                    <input type="email" id="leadPassengerEmail" name="leadPassengerEmail" required
-                                           class="form-input" placeholder="email@exemplo.com">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label for="leadPassengerPhone" class="block text-sm font-medium text-gray-700 mb-1">Telefone *</label>
-                                    <input type="text" id="leadPassengerPhone" name="leadPassengerPhone" required
-                                           class="form-input" placeholder="(11) 99999-9999" maxlength="15">
-                                </div>
-
-                                <div>
-                                    <label for="leadPassengerDocument" class="block text-sm font-medium text-gray-700 mb-1">CPF *</label>
-                                    <input type="text" id="leadPassengerDocument" name="leadPassengerDocument" required
-                                           class="form-input" placeholder="000.000.000-00" maxlength="14">
-                                </div>
-                            </div>
-
+                        <form id="passenger-form" class="space-y-4" th:action="@{/dados}" method="post" th:object="${reserva}">
+                            <input type="hidden" name="pacoteId" th:value="${pacoteSelecionado.id}">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label for="departureDate" class="block text-sm font-medium text-gray-700 mb-1">Data de Partida *</label>
-                                    <input type="date" id="departureDate" name="departureDate" required class="form-input">
+                                    <input type="date" id="departureDate" name="dataInicio" th:field="*{dataInicio}" required class="form-input">
                                 </div>
 
                                 <div>
                                     <label for="passengerCount" class="block text-sm font-medium text-gray-700 mb-1">Número de Passageiros *</label>
-                                    <select id="passengerCount" name="passengerCount" required class="form-input">
-                                        <option value="">Selecione</option>
-                                        <option value="1">1 passageiro</option>
-                                        <option value="2">2 passageiros</option>
-                                        <option value="3">3 passageiros</option>
-                                        <option value="4">4 passageiros</option>
-                                        <option value="5">5 passageiros</option>
-                                        <option value="6">6 passageiros</option>
-                                    </select>
+                                    <input type="number" id="passengerCount" th:field="*{pessoasViagem}" required class="form-input"/>
+                                    <label for="passengerCount" class="block text-sm font-medium text-gray-700 mb-1">Quantidade de Dias *</label>
+                                    <input type="number" id="quantidadeDias" name="quantidadeDias" th:field="*{quantidadeDias}" min="1" required placeholder="Ex: 7 dias" class="form-input">
                                 </div>
-                            </div>
-
-                            <div>
-                                <label for="specialRequests" class="block text-sm font-medium text-gray-700 mb-1">Solicitações Especiais</label>
-                                <textarea id="specialRequests" name="specialRequests" rows="3"
-                                          class="form-input" placeholder="Dietas especiais, acessibilidade, etc."></textarea>
                             </div>
                         </form>
 
@@ -207,20 +129,22 @@
                         </div>
                     </div>
 
-                    <!-- Step 3: Payment -->
+                    <!-- Step 2: Payment -->
                     <div class="bg-white rounded-lg shadow-lg p-6 hidden" id="step-3">
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">3</div>
                             <h2 class="text-xl font-medium">Forma de Pagamento</h2>
                         </div>
 
-                        <form id="payment-form" class="space-y-6">
+                        <form id="payment-form" th:action="@{/finalizar}" method="post" class="space-y-6">
                             <!-- Payment Method Selection -->
+                            <input type="hidden" name="pacoteId" th:value="${reserva.pacoteId}" />
+                            <input type="hidden" name="reservaId" th:value="${reserva.id}" />
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-3">Selecione a forma de pagamento *</label>
                                 <div class="space-y-3">
                                     <div class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
-                                        <input type="radio" id="payment-card" name="paymentMethod" value="card" required
+                                        <input type="radio" id="payment-card" name="paymentMethod" value="CARTAOCREDITO" required
                                                class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
                                         <label for="payment-card" class="flex items-center gap-2 flex-1 cursor-pointer">
                                             <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -231,7 +155,7 @@
                                     </div>
 
                                     <div class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
-                                        <input type="radio" id="payment-pix" name="paymentMethod" value="pix"
+                                        <input type="radio" id="payment-pix" name="paymentMethod" value="PIX"
                                                class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
                                         <label for="payment-pix" class="flex items-center gap-2 flex-1 cursor-pointer">
                                             <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -242,7 +166,7 @@
                                     </div>
 
                                     <div class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
-                                        <input type="radio" id="payment-boleto" name="paymentMethod" value="boleto"
+                                        <input type="radio" id="payment-boleto" name="paymentMethod" value="BOLETO"
                                                class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
                                         <label for="payment-boleto" class="flex items-center gap-2 flex-1 cursor-pointer">
                                             <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -282,16 +206,16 @@
                                            class="form-input" placeholder="Nome conforme impresso no cartão">
                                 </div>
                             </div>
-                        </form>
 
                         <div class="flex gap-4 mt-6">
                             <button type="button" class="flex-1 btn-secondary">
                                 Voltar
                             </button>
-                            <button type="submit" form="reservation-form" class="flex-1 btn-primary" id="reservation-submit">
+                            <button type="submit" class="flex-1 btn-primary" id="reservation-submit">
                                 Finalizar Reserva
                             </button>
                         </div>
+                        </form>
                     </div>
                 </div>
 

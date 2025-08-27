@@ -135,7 +135,7 @@
                 </form>
 
                 <div class="flex items-center gap-2 text-sm text-gray-600">
-                    <span th:text="${#lists.size(pacotes)}">0</span> pacote(s) encontrado(s)
+                    <span th:text="${pacotes != null ? pacotes.size() : 0}"></span> pacote(s) encontrado(s)
                 </div>
             </div>
 
@@ -149,9 +149,9 @@
                             <p class="text-gray-600 mb-2" th:text="'Clima: ' + ${pacote.clima}">Clima</p>
                             <p class="text-gray-800 font-bold mb-2" th:text="'R$ ' + ${pacote.preco}">Preço</p>
                             <a th:href="@{'/detalhes-pacote/' + ${pacote.id}}"
-                            class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                                Ver Detalhes
-                            </a>
+                            class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Detalhes</a>
+                            <a th:href="@{/reserva/{id}(id=${pacote.id})}" 
+                            class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Reservar</a>
                         </div>
                     </div>
                 </div>

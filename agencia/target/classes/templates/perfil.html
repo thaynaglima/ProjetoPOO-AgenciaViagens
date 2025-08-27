@@ -26,8 +26,8 @@
                     <a th:href="@{/}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
                     <a th:href="@{/pacotesTodos}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
                     <a th:href="@{/cadastro}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
-                    <a th:href="@{/reserva}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-reserva">Reserva</a>
-                    <a th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-historico">Minhas Reservas</a>
+                    <a th:href="@{/reserva}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-reserva">Reserva</a>
+                    <a th:href="@{/historico-reservas/{clienteNome}(clienteNome=${cliente.nome})}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-historico">Minhas Reservas</a>
                     <a th:href="@{/perfil}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="nav-perfil">Meu Perfil</a>
                     
                     <!-- Login/User Menu -->

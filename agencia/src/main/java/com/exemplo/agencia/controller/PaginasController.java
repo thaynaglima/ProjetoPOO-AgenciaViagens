@@ -25,11 +25,6 @@ public class PaginasController {
     return "detalhes-pacote"; // carrega detalhes-pacote.html
   }
 
-  @GetMapping("/historico-reservas")
-  public String historicoReservas(){
-    return "historico-reservas"; // carrega historico-reservas.html
-  }
-
   @GetMapping("/login")
   public String login(){
     return "login"; // carrega login.html
