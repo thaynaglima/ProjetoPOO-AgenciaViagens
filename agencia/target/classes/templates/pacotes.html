@@ -42,29 +42,36 @@
                     <!-- Login/User Menu -->
                     <!-- Botão login só aparece se não tiver cliente -->
                     <div id="auth-section">
-                        <a th:if="${cliente == null}" th:href="@{/login}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
+                        <a th:if="${cliente == null}" th:href="@{/login}"
+                            class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                            id="login-btn">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                </path>
                             </svg>
                             Entrar
                         </a>
                         <!-- Menu do usuário aparece só se logado -->
                         <div th:if="${cliente != null}" class="relative" id="user-menu">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium"
+                                    id="user-avatar">
                                     <span th:text="${cliente.iniciais}">JS</span>
                                 </div>
                                 <button th:href="@{/logout}" class="text-red-600 hover:text-red-800" title="Sair">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                        </path>
                                     </svg>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </nav>
 
@@ -94,9 +101,10 @@
 
             <!-- Filters -->
             <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
-                <form method="get" action="/pacotesFiltrados" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
+                <form method="get" action="/pacotesFiltrados"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-4">
                     <!-- Busca por nome -->
-                    <input type="text" name="nome" placeholder="Buscar destinos..." class="form-input pl-4"/>
+                    <input type="text" name="nome" placeholder="Buscar destinos..." class="form-input pl-4" />
 
                     <!-- Categoria -->
                     <select name="categoria" class="form-input">
@@ -132,45 +140,47 @@
             </div>
 
             <!-- Package Grid -->
-                <!-- Lista de pacotes dinamicamente -->
-                <div id="packages-grid" th:unless="${#lists.isEmpty(pacotes)}" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div th:each="pacote : ${pacotes}" class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <img th:src="${pacote.imagemUrl}" alt="Imagem do pacote" class="w-full h-48 object-cover">
-                        <div class="p-4">
-                            <h2 class="text-xl font-semibold mb-2" th:text="${pacote.pais}">Destino</h2>
-                            <p class="text-gray-600 mb-2" th:text="'Clima: ' + ${pacote.clima}">Clima</p>
-                            <p class="text-gray-800 font-bold mb-2" th:text="'R$ ' + ${pacote.preco}">Preço</p>
-                            <a th:href="@{'/detalhes-pacote/' + ${pacote.id}}"
-                            class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver Detalhes</a>
-                            <a th:href="@{/reserva/{id}(id=${pacote.id})}" 
+            <!-- Lista de pacotes dinamicamente -->
+            <div id="packages-grid" th:unless="${#lists.isEmpty(pacotes)}"
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div th:each="pacote : ${pacotes}" class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img th:src="${pacote.imagemUrl}" alt="Imagem do pacote" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h2 class="text-xl font-semibold mb-2" th:text="${pacote.pais}">Destino</h2>
+                        <p class="text-gray-600 mb-2" th:text="'Clima: ' + ${pacote.clima}">Clima</p>
+                        <p class="text-gray-800 font-bold mb-2" th:text="'R$ ' + ${pacote.preco}">Preço</p>
+                        <a th:href="@{/detalhes-pacote/{id}(id=${pacote.id})}"
+                            class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Ver
+                            Detalhes</a>
+                        <a th:href="@{/reserva/{id}(id=${pacote.id})}"
                             class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Reservar</a>
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Empty State -->
-            <div class="text-center py-12 hidden" th:if="${#lists.isEmpty(pacotes)}">
-                <svg class="h-12 w-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-                <p class="text-gray-600 mb-4">Não encontramos pacotes que correspondam aos seus critérios de busca.</p>
-                <button class="btn-primary">Limpar Filtros</button>
-            </div>
+        <!-- Empty State -->
+        <div class="text-center py-12 hidden" th:if="${#lists.isEmpty(pacotes)}">
+            <svg class="h-12 w-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <p class="text-gray-600 mb-4">Não encontramos pacotes que correspondam aos seus critérios de busca.</p>
+            <button class="btn-primary">Limpar Filtros</button>
+        </div>
 
-            <!-- CTA Section -->
-            <div class="mt-16 text-center bg-blue-50 rounded-lg p-8">
-                <h2 class="text-2xl font-bold mb-4">Não encontrou o que procurava?</h2>
-                <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
-                    Nossa equipe de especialistas pode criar um pacote personalizado especialmente para você.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="btn-primary">Fale Conosco</button>
-                    <button class="btn-secondary">WhatsApp: (11) 99999-9999</button>
-                </div>
+        <!-- CTA Section -->
+        <div class="mt-16 text-center bg-blue-50 rounded-lg p-8">
+            <h2 class="text-2xl font-bold mb-4">Não encontrou o que procurava?</h2>
+            <p class="text-gray-600 mb-6 max-w-2xl mx-auto">
+                Nossa equipe de especialistas pode criar um pacote personalizado especialmente para você.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="btn-primary">Fale Conosco</button>
+                <button class="btn-secondary">WhatsApp: (11) 99999-9999</button>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Footer -->
@@ -208,4 +218,5 @@
         </div>
     </footer>
 </body>
+
 </html>

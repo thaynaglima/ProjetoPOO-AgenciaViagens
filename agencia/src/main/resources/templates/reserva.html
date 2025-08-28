@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="min-h-screen bg-white">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg sticky top-0 z-50" id="navbar">
@@ -15,7 +17,8 @@
                 <div class="flex items-center">
                     <a th:href="@{/}" class="flex items-center space-x-2">
                         <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                         </svg>
                         <span class="font-bold text-xl text-blue-600">ViagemTop</span>
                     </a>
@@ -23,30 +26,45 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
-                    <a th:href="@{/}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
-                    <a th:href="@{/pacotesTodos}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
-                    <a th:if="${cliente == null}"th:href="@{/cadastro}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
-                    <a th:if="${cliente != null}"th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-historico">Minhas Reservas</a>
-                    <a th:if="${cliente != null}" th:href="@{/clientes/perfil}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-perfil">Meu Perfil</a>
+                    <a th:href="@{/}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
+                    <a th:href="@{/pacotesTodos}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
+                    <a th:if="${cliente == null}" th:href="@{/cadastro}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
+                        id="nav-cadastro">Cadastro</a>
+                    <a th:if="${cliente != null}" th:href="@{/historico-reservas}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                        id="nav-historico">Minhas Reservas</a>
+                    <a th:if="${cliente != null}" th:href="@{/clientes/perfil}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                        id="nav-perfil">Meu Perfil</a>
 
                     <!-- Login/User Menu -->
                     <!-- Botão login só aparece se não tiver cliente -->
                     <div id="auth-section">
-                        <a th:if="${cliente == null}" th:href="@{/login}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
+                        <a th:if="${cliente == null}" th:href="@{/login}"
+                            class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                            id="login-btn">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                </path>
                             </svg>
                             Entrar
                         </a>
                         <!-- Menu do usuário aparece só se logado -->
                         <div th:if="${cliente != null}" class="relative" id="user-menu">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium"
+                                    id="user-avatar">
                                     <span th:text="${cliente.iniciais}">JS</span>
                                 </div>
                                 <button th:href="@{/logout}" class="text-red-600 hover:text-red-800" title="Sair">
                                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                        </path>
                                     </svg>
                                 </button>
                             </div>
@@ -78,100 +96,101 @@
                 </p>
             </div>
 
-            <!-- Reservation Progress -->
-            <div class="mb-8">
-                <div class="flex items-center justify-center space-x-4">
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">1</div>
-                        <span class="ml-2 text-sm text-gray-600">Dados do Passageiro</span>
-                    </div>
-                    <div class="flex-1 h-px bg-gray-300 mx-4"></div>
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center text-sm font-medium">2</div>
-                        <span class="ml-2 text-sm text-gray-600">Pagamento</span>
-                    </div>
-                </div>
-            </div>
-
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <!-- Form Section -->
                 <div class="lg:col-span-2 space-y-8">
-                    <!-- Step 1: Passenger Data -->
-                    <div class="bg-white rounded-lg shadow-lg p-6 hidden" id="step-2">
+                    <!-- Step 1: Trip Data -->
+                    <div class="bg-white rounded-lg shadow-lg p-6" id="step-1">
                         <div class="flex items-center gap-3 mb-6">
-                            <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">2</div>
-                            <h2 class="text-xl font-medium">Dados do Passageiro Principal</h2>
+                            <div
+                                class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                                1</div>
+                            <h2 class="text-xl font-medium">Informações da Viagem</h2>
                         </div>
 
-                        <form id="passenger-form" class="space-y-4" th:action="@{/dados}" method="post" th:object="${reserva}">
-                            <input type="hidden" name="pacoteId" th:value="${pacoteSelecionado.id}">
+                        <form id="reservation-form" class="space-y-4" th:action="@{/reservar/{pacoteId}}" method="post"
+                            th:object="${reserva}">>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label for="departureDate" class="block text-sm font-medium text-gray-700 mb-1">Data de Partida *</label>
-                                    <input type="date" id="departureDate" name="dataInicio" th:field="*{dataInicio}" required class="form-input">
+                                    <label for="departureDate" class="block text-sm font-medium text-gray-700 mb-1">Data
+                                        de Partida *</label>
+                                    <input type="date" id="departureDate" name="dataInicio" th:field="*{dataInicio}"
+                                        required class="form-input">
                                 </div>
 
                                 <div>
-                                    <label for="passengerCount" class="block text-sm font-medium text-gray-700 mb-1">Número de Passageiros *</label>
-                                    <input type="number" id="passengerCount" th:field="*{pessoasViagem}" required class="form-input"/>
-                                    <label for="passengerCount" class="block text-sm font-medium text-gray-700 mb-1">Quantidade de Dias *</label>
-                                    <input type="number" id="quantidadeDias" name="quantidadeDias" th:field="*{quantidadeDias}" min="1" required placeholder="Ex: 7 dias" class="form-input">
+                                    <label for="passengerCount"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Número de Passageiros
+                                        *</label>
+                                    <input type="number" id="passengerCount" name="pessoasViagem"
+                                        th:field="*{pessoasViagem}" required class="form-input" />
+                                    <label for="passengerCount"
+                                        class="block text-sm font-medium text-gray-700 mb-1">Quantidade de Dias
+                                        *</label>
+                                    <input type="number" id="quantidadeDias" name="quantidadeDias"
+                                        th:field="*{quantidadeDias}" min="1" required placeholder="Ex: 7 dias"
+                                        class="form-input">
                                 </div>
                             </div>
-                        </form>
-
-                        <div class="flex gap-4 mt-6">
-                            <button type="button" class="flex-1 btn-secondary">
-                                Voltar
-                            </button>
-                            <button type="button" class="flex-1 btn-primary" id="continue-step-2">
-                                Continuar
-                            </button>
-                        </div>
                     </div>
 
                     <!-- Step 2: Payment -->
-                    <div class="bg-white rounded-lg shadow-lg p-6 hidden" id="step-3">
+                    <div class="bg-white rounded-lg shadow-lg p-6" id="step-3">
                         <div class="flex items-center gap-3 mb-6">
-                            <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">3</div>
+                            <div
+                                class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                                2</div>
                             <h2 class="text-xl font-medium">Forma de Pagamento</h2>
                         </div>
 
-                        <form id="payment-form" th:action="@{/finalizar}" method="post" class="space-y-6">
+                        <div id="payment-form" class="space-y-6">
                             <!-- Payment Method Selection -->
-                            <input type="hidden" name="pacoteId" th:value="${reserva.pacoteId}" />
-                            <input type="hidden" name="reservaId" th:value="${reserva.id}" />
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-3">Selecione a forma de pagamento *</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Selecione a forma de
+                                    pagamento *</label>
                                 <div class="space-y-3">
-                                    <div class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
-                                        <input type="radio" id="payment-card" name="paymentMethod" value="CARTAOCREDITO" required
-                                               class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                    <div
+                                        class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
+                                        <input type="radio" id="payment-card" name="formaPagamento"
+                                            value="CARTAOCREDITO" required
+                                            class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
                                         <label for="payment-card" class="flex items-center gap-2 flex-1 cursor-pointer">
-                                            <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                                            <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                                                </path>
                                             </svg>
                                             <span>Cartão de Crédito</span>
                                         </label>
                                     </div>
 
-                                    <div class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
-                                        <input type="radio" id="payment-pix" name="paymentMethod" value="PIX"
-                                               class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                    <div
+                                        class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
+                                        <input type="radio" id="payment-pix" name="formaPagamento" value="PIX"
+                                            class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
                                         <label for="payment-pix" class="flex items-center gap-2 flex-1 cursor-pointer">
-                                            <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                </path>
                                             </svg>
-                                            <span>PIX (Desconto de 5%)</span>
+                                            <span>PIX</span>
                                         </label>
                                     </div>
 
-                                    <div class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
-                                        <input type="radio" id="payment-boleto" name="paymentMethod" value="BOLETO"
-                                               class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-                                        <label for="payment-boleto" class="flex items-center gap-2 flex-1 cursor-pointer">
-                                            <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    <div
+                                        class="flex items-center space-x-3 p-3 border border-gray-300 rounded-md hover:bg-gray-50">
+                                        <input type="radio" id="payment-boleto" name="formaPagamento" value="BOLETO"
+                                            class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+                                        <label for="payment-boleto"
+                                            class="flex items-center gap-2 flex-1 cursor-pointer">
+                                            <svg class="h-5 w-5 text-gray-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                                </path>
                                             </svg>
                                             <span>Boleto Bancário</span>
                                         </label>
@@ -179,103 +198,54 @@
                                 </div>
                             </div>
 
-                            <!-- Credit Card Details -->
-                            <div id="card-details" class="hidden space-y-4">
-                                <div>
-                                    <label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-1">Número do Cartão *</label>
-                                    <input type="text" id="cardNumber" name="cardNumber"
-                                           class="form-input" placeholder="0000 0000 0000 0000" maxlength="19">
-                                </div>
-
-                                <div class="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="cardExpiry" class="block text-sm font-medium text-gray-700 mb-1">Validade *</label>
-                                        <input type="text" id="cardExpiry" name="cardExpiry"
-                                               class="form-input" placeholder="MM/AA" maxlength="5">
-                                    </div>
-
-                                    <div>
-                                        <label for="cardCVV" class="block text-sm font-medium text-gray-700 mb-1">CVV *</label>
-                                        <input type="text" id="cardCVV" name="cardCVV"
-                                               class="form-input" placeholder="123" maxlength="4">
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label for="cardName" class="block text-sm font-medium text-gray-700 mb-1">Nome no Cartão *</label>
-                                    <input type="text" id="cardName" name="cardName"
-                                           class="form-input" placeholder="Nome conforme impresso no cartão">
-                                </div>
+                            <div class="flex gap-4 mt-6">
+                                <button type="submit" class="flex-1 btn-primary" id="reservation-submit">
+                                    Finalizar Reserva
+                                </button>
                             </div>
-
-                        <div class="flex gap-4 mt-6">
-                            <button type="button" class="flex-1 btn-secondary">
-                                Voltar
-                            </button>
-                            <button type="submit" class="flex-1 btn-primary" id="reservation-submit">
-                                Finalizar Reserva
-                            </button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Summary Section -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
-                        <h3 class="text-lg font-medium mb-4">Resumo da Reserva</h3>
-                        
-                        <div id="reservation-summary">
-                            <div class="text-center py-8 text-gray-500">
-                                <svg class="h-12 w-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                                </svg>
-                                <p>Selecione um pacote para ver o resumo</p>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Hidden form for final submission -->
-    <form id="reservation-form" class="hidden" action="/reservar" method="post"></form>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 mt-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-                        </svg>
-                        <span class="font-bold text-lg">ViagemTop</span>
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12 mt-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="flex items-center space-x-2 mb-4">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            </svg>
+                            <span class="font-bold text-lg">ViagemTop</span>
+                        </div>
+                        <p class="text-gray-400">
+                            Sua agência de viagens de confiança há mais de 15 anos.
+                        </p>
                     </div>
-                    <p class="text-gray-400">
-                        Sua agência de viagens de confiança há mais de 15 anos.
-                    </p>
+                    <div>
+                        <h4 class="font-medium mb-4">Contato</h4>
+                        <div class="space-y-2 text-gray-400">
+                            <p>📞 (11) 1234-5678</p>
+                            <p>📧 contato@viagemtop.com.br</p>
+                            <p>📍 São Paulo, SP</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-4">Redes Sociais</h4>
+                        <div class="space-y-2 text-gray-400">
+                            <p>Facebook | Instagram | Twitter</p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-medium mb-4">Contato</h4>
-                    <div class="space-y-2 text-gray-400">
-                        <p>📞 (11) 1234-5678</p>
-                        <p>📧 contato@viagemtop.com.br</p>
-                        <p>📍 São Paulo, SP</p>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="font-medium mb-4">Redes Sociais</h4>
-                    <div class="space-y-2 text-gray-400">
-                        <p>Facebook | Instagram | Twitter</p>
-                    </div>
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                    <p>&copy; 2025 ViagemTop. Todos os direitos reservados.</p>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 ViagemTop. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
+        </footer>
 </body>
+
 </html>

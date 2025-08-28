@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,64 +33,46 @@ public class ReservaController {
         this.pacoteService = pacoteService;
     }
 
-    @GetMapping("/reserva/{pacoteId}")
-    public String selecionarPacote(@PathVariable("pacoteId") String pacoteId, Model model) {
+    @PostMapping("/reservar/{pacoteId}")
+
+    public String finalizarReserva(@PathVariable("pacoteId") String pacoteId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
+            @RequestParam int pessoasViagem,
+            @RequestParam int quantidadeDias,
+            @RequestParam("formaPagamento") String formaPagamento,
+            Model model) {
         PacoteViagem pacoteSelecionado = pacoteService.getBuscarPorId(pacoteId);
         if (pacoteSelecionado == null) {
             // Se não existir, volta pra lista
-            return "redirect:/pacotes";}
-
-        // guarda no sistema de reservas (poderia ser em sessão)
-        reservaService.setPacoteSelecionado(pacoteSelecionado);
-        // Inicializa reserva temporária
-        Reserva reserva = new Reserva();
-        reserva.setPacoteId(pacoteSelecionado.getId());
-
-        model.addAttribute("pacoteSelecionado", pacoteSelecionado);
-        model.addAttribute("reserva", reserva);
-        if (clienteService.getClienteLogado() != null)
-            model.addAttribute("cliente", clienteService.getClienteLogado());
-        return "reserva"; 
-    }
-
-    // Processar o formulário e ir para próxima etapa
-     @PostMapping("/dados")
-    public String salvarDados(@ModelAttribute Reserva reserva,
-        @RequestParam int pessoasViagem,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
-        @RequestParam int quantidadeDias,
-        Model model
-    ) {
-        reserva.setPessoasViagem(pessoasViagem);
-        reserva.setDataInicio(dataInicio);
-        reserva.setQuantidadeDias(quantidadeDias);
-
-        reservaService.setReservaTemporaria(reserva);
-        // Adiciona atributos para a View de confirmação
-        model.addAttribute("reserva", reserva);
-        if (clienteService.getClienteLogado() != null)
-            model.addAttribute("cliente", clienteService.getClienteLogado());
-        return "reserva";
-    }
-
-    // Etapa 3 - pagamento -> cria a Reserva de verdade
-    @PostMapping("/finalizar")
-    public String finalizarReserva(
-            @RequestParam("paymentMethod") String formaPagamento,
-            Model model) {
-
-        PacoteViagem pacoteSelecionado = reservaService.getPacoteSelecionado();
-        Cliente clienteLogado = clienteService.getClienteLogado();
-        Reserva reserva = reservaService.getReservaTemporaria();
-
-        if (pacoteSelecionado == null || reserva == null) {
-            model.addAttribute("erro", "Dados da reserva incompletos.");
-            return "erro";
+            return "redirect:/pacotes";
         }
 
-        reserva.setDataReserva(LocalDate.now());
-        reserva.setId(reservaService.buscarProximoId());
+        // Validações básicas no Controller
+        if (pessoasViagem < 0) {
+            return "Mínimo 1 pessoa";
+        }
+        if (quantidadeDias < 0) {
+            return "Mínimo 1 pessoa";
+        }
+        if (dataInicio == null || dataInicio.isBefore(LocalDate.now())) {
+            return "Data de nascimento inválida";
+        }
+        if (formaPagamento == null) {
+            return "Você deve escolher uma forma de pagamento";
+        }
+        Cliente clienteLogado = clienteService.getClienteLogado();
+
+        if (pacoteSelecionado == null || clienteLogado == null) {
+            return "Dados da reserva incompletos.";
+        }
+        // Se passou nas validações básicas, delega para o service salvar
+        Reserva reserva = new Reserva();
         reserva.setClienteNome(clienteLogado.getNome());
+        reserva.setPessoasViagem(pessoasViagem);
+        reserva.setPacoteId(pacoteSelecionado.getId());
+        reserva.setDataReserva(LocalDate.now());
+        reserva.setDataInicio(dataInicio);
+        reserva.setQuantidadeDias(quantidadeDias);
         reserva.setFormaPagamento(Reserva.FormaPagamento.valueOf(formaPagamento));
 
         reservaService.salvarReserva(reserva);
@@ -102,26 +83,27 @@ public class ReservaController {
         return "redirect:/historico-reservas";
     }
 
-        @GetMapping("/historico-reservas")
+    @GetMapping("/historico-reservas")
     public String listarReservas(
             @RequestParam(name = "status", required = false, defaultValue = "all") String status,
             @RequestParam(name = "search", required = false) String search,
             Model model) {
         Cliente clienteLogado = clienteService.getClienteLogado();
         if (clienteLogado == null) {
-        // Se não estiver logado, redireciona para login
-        return "redirect:/login";
-    }
+            // Se não estiver logado, redireciona para login
+            return "redirect:/login";
+        }
         // Buscar apenas reservas do cliente logado
         var reservas = reservaService.getReserva().stream()
                 .filter(r -> r.getClienteNome().equalsIgnoreCase(clienteLogado.getNome()))
                 .toList();
-        
+
         // filtro por status
         if (!"all".equalsIgnoreCase(status)) {
             reservas = reservas.stream()
                     .filter(r -> r.getStatus().name().equalsIgnoreCase(status))
-                    .toList();}
+                    .toList();
+        }
 
         // filtro por busca (cliente ou pacote)
         if (search != null && !search.isBlank()) {
@@ -129,8 +111,9 @@ public class ReservaController {
             reservas = reservas.stream()
                     .filter(r -> r.getClienteNome().toLowerCase().contains(termo)
                             || r.getPacoteId().toLowerCase().contains(termo))
-                    .toList();}
-        
+                    .toList();
+        }
+
         // Estatísticas
         long total = reservas.size();
         long confirmadas = reservas.stream()
@@ -142,7 +125,7 @@ public class ReservaController {
         BigDecimal totalInvestido = reservas.stream()
                 .map(Reserva::getPrecoFinal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
-        
+
         // Adicionar atributos para a view
         model.addAttribute("reservas", reservas);
         model.addAttribute("totalReservas", total);
@@ -154,6 +137,21 @@ public class ReservaController {
         if (clienteService.getClienteLogado() != null)
             model.addAttribute("cliente", clienteLogado);
 
-        return "historico-reservas"; 
+        return "historico-reservas";
+    }
+
+
+    @GetMapping("/reserva/{pacoteId}")
+    public String mostraFormRes(@PathVariable("pacoteId") String pacoteId, Model model) {
+        var pacote = pacoteService.getBuscarPorId(pacoteId);
+        if (pacote == null)
+            return "redirect:/pacotes";
+
+        model.addAttribute("pacote", pacote);
+        model.addAttribute("reserva", new Reserva());
+        model.addAttribute("cliente", clienteService.getClienteLogado());
+
+        return "reserva";
     }
 }
+    

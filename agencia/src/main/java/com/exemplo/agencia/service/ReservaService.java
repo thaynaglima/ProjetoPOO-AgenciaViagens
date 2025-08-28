@@ -15,7 +15,6 @@ import com.exemplo.agencia.util.BancoDeDadosSimulado;
 public class ReservaService {
     private final BancoDeDadosSimulado bancoReserva;
     private PacoteViagem pacoteSelecionado;
-    private Reserva reservaTemporaria;
 
     public ReservaService() {
         this.bancoReserva = new BancoDeDadosSimulado();
@@ -75,7 +74,7 @@ public class ReservaService {
     int maxId = reservas.stream()
         .map(Reserva::getId)
         .filter(id -> id.matches("RES\\d+")) // Ex: R001
-        .mapToInt(id -> Integer.parseInt(id.substring(1))) // Remove o 'R'
+        .mapToInt(id -> Integer.parseInt(id.substring(3))) // Remove o 'RES'
         .max()
         .orElse(0);
 
@@ -108,13 +107,5 @@ public class ReservaService {
                 .multiply(BigDecimal.valueOf(reserva.getQuantidadeDias()));
 
         return preco;
-    }
-
-    public void setReservaTemporaria(Reserva reserva) {
-        this.reservaTemporaria = reserva;
-    }
-
-    public Reserva getReservaTemporaria() {
-        return reservaTemporaria;
     }
 }

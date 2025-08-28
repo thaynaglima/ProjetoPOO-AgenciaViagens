@@ -18,4 +18,6 @@ Gabriela Nunes;gabriela.nunes@email.com;gabriela!;77889900112;1987-04-06;1192225
 Diego Cardoso;diego.cardoso@email.com;diego2025;88990011223;1993-11-29;11911148888
 Tatiane Ramos;tatiane.ramos@email.com;tatiane!;99001122334;1968-07-02;11999936666
 Marcos Vinicius;marcos.vinicius@email.com;marcos123;10111213141;1996-08-25;11988825555
-Luan Dantas Melo;luandantas760@gmail.com;Ldm2806!;12934608506;2006-02-28;79988351215
+Luan Dantas Melo;luandantas760@gmail.com;12345678;12934608506;2006-02-28;79988351215
+Luan Dantas Melo;luandantas760@gmail.com;12345678;12934608506;2006-02-28;79988351215
+Luidi;luandantas760@gmail.cj;12345678;12934608504;2006-02-28;79988351214

@@ -88,7 +88,7 @@ public class PacoteController {
         return "pacotes";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detalhes-pacote/{id}")
     public String getPacoteDetalhes(@PathVariable String id, Model model) {
         PacoteViagem pacote = pacoteService.getBuscarPorId(id);
         if (pacote == null) {
@@ -104,15 +104,6 @@ public class PacoteController {
         if (clienteService.getClienteLogado() != null)
             model.addAttribute("cliente", clienteService.getClienteLogado());
 
-        return "detalhes-pacote";
-    }
-
-    @GetMapping("/detalhes-pacote/{id}")
-    public String detalhesPacote(@PathVariable String id, Model model) {
-        PacoteViagem pacote = pacoteService.getBuscarPorId(id);
-        model.addAttribute("pacote", pacote);
-        if (clienteService.getClienteLogado() != null)
-            model.addAttribute("cliente", clienteService.getClienteLogado());
         return "detalhes-pacote";
     }
 }

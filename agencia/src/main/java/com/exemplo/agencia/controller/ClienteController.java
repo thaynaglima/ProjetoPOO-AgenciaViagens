@@ -27,40 +27,45 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @PostMapping("/cadastrar")
-    @ResponseBody
     public String cadastrarCliente(
-        @RequestParam String nome,
-        @RequestParam String email,
-        @RequestParam String senha,
-        @RequestParam String cpf,
-        @RequestParam String confirmPassword,
-        @RequestParam boolean aceitarTermos,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataNascimento,
-        @RequestParam String telefone
-    ) {
+            @RequestParam String nome,
+            @RequestParam String email,
+            @RequestParam String senha,
+            @RequestParam String cpf,
+            @RequestParam String confirmPassword,
+            @RequestParam boolean aceitarTermos,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataNascimento,
+            @RequestParam String telefone) {
         // Validações básicas no Controller
         if (nome == null || nome.isBlank()) {
-            return "Nome é obrigatório";}
+            return "Nome é obrigatório";
+        }
         if (!email.matches("^[\\w-.]+@[\\w-]+\\.[a-z]{2,}$")) {
-            return "Email inválido";}
+            return "Email inválido";
+        }
         if (senha.length() < 8) {
-            return "Senha deve ter no mínimo 8 caracteres";}
+            return "Senha deve ter no mínimo 8 caracteres";
+        }
         if (!senha.equals(confirmPassword)) {
-            return "As senhas não conferem";}
+            return "As senhas não conferem";
+        }
         cpf = cpf.replaceAll("\\D", "");
         if (!cpf.matches("\\d{11}")) {
-            return "CPF inválido";}
+            return "CPF inválido";
+        }
         if (dataNascimento == null || dataNascimento.isAfter(LocalDate.now())) {
-            return "Data de nascimento inválida";}
+            return "Data de nascimento inválida";
+        }
         telefone = telefone.replaceAll("\\D", "");
         // Verifica se tem 11 dígitos
-            if (!telefone.matches("\\d{11}")) {
-                return "Telefone inválido";}
+        if (!telefone.matches("\\d{11}")) {
+            return "Telefone inválido";
+        }
         if (!aceitarTermos) {
             return "Você deve aceitar os termos";
         }
-    // Se passou nas validações básicas, delega para o service salvar
-        Cliente cliente = new Cliente(nome,email,senha,cpf, dataNascimento, telefone);
+        // Se passou nas validações básicas, delega para o service salvar
+        Cliente cliente = new Cliente(nome, email, senha, cpf, dataNascimento, telefone);
         clienteService.salvarCliente(cliente);
         return "redirect:/login";
     }
@@ -69,26 +74,26 @@ public class ClienteController {
     public String login(@RequestParam String email, @RequestParam String senha, Model model) {
         boolean autenticado = clienteService.autenticar(email, senha);
         if (autenticado) {
-            return "redirect:/clientes/perfil"; //+ clienteService.buscarPorEmail(email).getCpf();
+            return "redirect:/clientes/perfil"; // + clienteService.buscarPorEmail(email).getCpf();
         } else {
             model.addAttribute("erro", "Email ou senha inválidos!");
-        return "login"; // volta para a página de login com mensagem de erro
+            return "login"; // volta para a página de login com mensagem de erro
         }
     }
-    
-     //buscar os dados do cliente
+
+    // buscar os dados do cliente
     @GetMapping("/perfil")
-    public String identificarPerfil(Model model){
-    Cliente cliente = clienteService.getClienteLogado();
-    if (cliente == null) {
-        // redireciona para uma página de erro ou login
-        return "redirect:/login";
-    }
-    model.addAttribute("cliente", cliente);
-    return "perfil";
+    public String identificarPerfil(Model model) {
+        Cliente cliente = clienteService.getClienteLogado();
+        if (cliente == null) {
+            // redireciona para uma página de erro ou login
+            return "redirect:/login";
+        }
+        model.addAttribute("cliente", cliente);
+        return "perfil";
     }
 
-     // LOGOUT
+    // LOGOUT
     @GetMapping("/logout")
     public String logout() {
         clienteService.logout();
@@ -98,12 +103,13 @@ public class ClienteController {
     // Alterar Email
     @PostMapping("/alterar-email")
     @ResponseBody
-    public String alterarEmail( @RequestParam String novoEmail) {
+    public String alterarEmail(@RequestParam String novoEmail) {
         Cliente cliente = clienteService.getClienteLogado();
-        if (cliente == null) return "Usuário não está logado";
+        if (cliente == null)
+            return "Usuário não está logado";
         try {
-            Cliente atualizado = clienteService.alterarEmail(cliente.getCpf(), novoEmail);
-            return "Email alterado com sucesso! Novo email: " + atualizado.getEmail();
+            clienteService.alterarEmail(cliente.getCpf(), novoEmail);
+            return "redirect:/";
         } catch (IllegalArgumentException e) {
             return "Erro: " + e.getMessage();
         }
@@ -114,15 +120,14 @@ public class ClienteController {
     @ResponseBody
     public String alterarSenha(@RequestParam String novaSenha) {
         Cliente cliente = clienteService.getClienteLogado();
-        if (cliente == null) return "Usuário não está logado";
+        if (cliente == null)
+            return "Usuário não está logado";
         try {
-            Cliente atualizado = clienteService.alterarSenha(cliente.getCpf(), novaSenha);
-            return "Senha alterada com sucesso! Nova senha: " + atualizado.getSenha();
+            clienteService.alterarSenha(cliente.getCpf(), novaSenha);
+            return "redirect:/";
         } catch (IllegalArgumentException e) {
             return "Erro: " + e.getMessage();
         }
     }
 
 }
-
-
