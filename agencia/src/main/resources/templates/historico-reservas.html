@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="min-h-screen bg-white">
     <!-- Navigation -->
     <nav class="bg-white shadow-lg sticky top-0 z-50" id="navbar">
@@ -15,7 +17,8 @@
                 <div class="flex items-center">
                     <a th:href="@{/}" class="flex items-center space-x-2">
                         <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                         </svg>
                         <span class="font-bold text-xl text-blue-600">ViagemTop</span>
                     </a>
@@ -23,33 +26,52 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8" id="desktop-nav">
-                    <a th:href="@{/}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
-                    <a th:href="@{/pacotesTodos}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
-                    <a th:href="@{/cadastro}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-cadastro">Cadastro</a>
-                    <a th:href="@{/reserva}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden" id="nav-reserva">Reserva</a>
-                    <a th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50" id="nav-historico">Minhas Reservas</a>
-                    <a th:if="${cliente != null}" th:href="@{/clientes/perfil}" class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50" id="nav-perfil">Meu Perfil</a>
+                    <a th:href="@{/}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Início</a>
+                    <a th:href="@{/pacotesTodos}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50">Pacotes</a>
+                    <a th:href="@{/cadastro}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
+                        id="nav-cadastro">Cadastro</a>
+                    <a th:href="@{/reserva}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50 hidden"
+                        id="nav-reserva">Reserva</a>
+                    <a th:href="@{/historico-reservas}" class="px-3 py-2 rounded-md text-blue-600 bg-blue-50"
+                        id="nav-historico">Minhas Reservas</a>
+                    <a th:if="${cliente != null}" th:href="@{/clientes/perfil}"
+                        class="px-3 py-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-blue-50"
+                        id="nav-perfil">Meu Perfil</a>
 
                     <!-- Login/User Menu -->
                     <!-- Botão login só aparece se não tiver cliente -->
                     <div id="auth-section">
-                        <a th:if="${cliente == null}" th:href="@{/login}" class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700" id="login-btn">
+                        <a th:if="${cliente == null}" th:href="@{/login}"
+                            class="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                            id="login-btn">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                </path>
                             </svg>
                             Entrar
                         </a>
                         <!-- Menu do usuário aparece só se logado -->
                         <div th:if="${cliente != null}" class="relative" id="user-menu">
                             <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium" id="user-avatar">
+                                <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium"
+                                    id="user-avatar">
                                     <span th:text="${cliente.iniciais}">JS</span>
                                 </div>
-                                <button th:href="@{/logout}" class="text-red-600 hover:text-red-800" title="Sair">
-                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                                    </svg>
-                                </button>
+                                <form th:action="@{/logout}" method="post" class="inline">
+                                    <button type="submit" class="text-red-600 hover:text-red-800" title="Sair">
+                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </form>
+
                             </div>
                         </div>
                     </div>
@@ -75,11 +97,13 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm text-gray-600 mb-1">Total de Viagens</p>
-                            <p class="text-2xl font-bold text-gray-900" id="total-reservations" th:text="${totalReservas}">0</p>
+                            <p class="text-2xl font-bold text-gray-900" id="total-reservations"
+                                th:text="${totalReservas}">0</p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                             <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 7v2m0 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m4 0H6"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 7V3a4 4 0 118 0v4m-4 7v2m0 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m4 0H6"></path>
                             </svg>
                         </div>
                     </div>
@@ -89,11 +113,13 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm text-gray-600 mb-1">Confirmadas</p>
-                            <p class="text-2xl font-bold text-green-600" id="confirmed-reservations" th:text="${reservasConfirmadas}">0</p>
+                            <p class="text-2xl font-bold text-green-600" id="confirmed-reservations"
+                                th:text="${reservasConfirmadas}">0</p>
                         </div>
                         <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
                             <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
                     </div>
@@ -103,11 +129,13 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm text-gray-600 mb-1">Concluídas</p>
-                            <p class="text-2xl font-bold text-blue-600" id="completed-reservations" th:text="${reservasConcluidas}">0</p>
+                            <p class="text-2xl font-bold text-blue-600" id="completed-reservations"
+                                th:text="${reservasConcluidas}">0</p>
                         </div>
                         <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                             <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7"></path>
                             </svg>
                         </div>
                     </div>
@@ -117,11 +145,14 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm text-gray-600 mb-1">Total Investido</p>
-                            <p class="text-2xl font-bold text-gray-900" id="total-invested" th:text="${#numbers.formatCurrency(totalInvestido)}">R$ 0,00</p>
+                            <p class="text-2xl font-bold text-gray-900" id="total-invested"
+                                th:text="${#numbers.formatCurrency(totalInvestido)}">R$ 0,00</p>
                         </div>
                         <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
                             <svg class="h-6 w-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
+                                </path>
                             </svg>
                         </div>
                     </div>
@@ -132,25 +163,28 @@
             <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
                 <h3 class="text-lg font-medium mb-4 flex items-center gap-2">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z">
+                        </path>
                     </svg>
                     Filtros
                 </h3>
                 <form th:action="@{/historico-reservas}" method="get" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div class="relative">
-                        <input type="text" name="search" placeholder="Buscar por cliente ou pacote..." 
+                        <input type="text" name="search" placeholder="Buscar por cliente ou pacote..."
                             class="form-input pl-3" th:value="${searchTerm}">
                     </div>
-                    
+
                     <!-- Filtro por status -->
                     <select class="form-input" id="status-filter" name="status">
                         <option value="all" th:selected="${statusSelecionado == 'all'}">Todos os Status</option>
-                        <option value="CONFIRMADA" th:selected="${statusSelecionado == 'CONFIRMADA'}">Confirmada</option>
+                        <option value="CONFIRMADA" th:selected="${statusSelecionado == 'CONFIRMADA'}">Confirmada
+                        </option>
                         <option value="PENDENTE" th:selected="${statusSelecionado == 'PENDENTE'}">Pendente</option>
                         <option value="FINALIZADA" th:selected="${statusSelecionado == 'FINALIZADA'}">Concluída</option>
                         <option value="CANCELADA" th:selected="${statusSelecionado == 'CANCELADA'}">Cancelada</option>
                     </select>
-                    
+
                     <!-- Botões -->
                     <button type="submit" class="btn-secondary">
                         Limpar Filtros
@@ -168,14 +202,16 @@
                     <p class="text-lg font-semibold text-gray-900" th:text="${reserva.clienteNome}">Nome Cliente</p>
                     <p class="text-sm text-gray-600">Pacote: <span th:text="${reserva.pacoteId}">ID</span></p>
                     <p class="text-sm text-gray-600">Status: <span th:text="${reserva.status}">Status</span></p>
-                    <p class="text-sm text-gray-600">Valor: <span th:text="${#numbers.formatCurrency(reserva.precoFinal)}">R$0,00</span></p>
+                    <p class="text-sm text-gray-600">Valor: <span
+                            th:text="${#numbers.formatCurrency(reserva.precoFinal)}">R$0,00</span></p>
                 </div>
             </div>
 
             <!-- Empty State -->
             <div class="text-center py-12" th:if="${#lists.isEmpty(reservas)}">
                 <svg class="h-12 w-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 7v2m0 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m4 0H6"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3a4 4 0 118 0v4m-4 7v2m0 0v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4m4 0H6"></path>
                 </svg>
                 <p class="text-gray-600 mb-4">Nenhuma reserva encontrada.</p>
                 <a th:href="@{/pacotesTodos}" class="btn-primary">Explorar Pacotes</a>
@@ -190,7 +226,8 @@
                 <div>
                     <div class="flex items-center space-x-2 mb-4">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                         </svg>
                         <span class="font-bold text-lg">ViagemTop</span>
                     </div>
@@ -217,4 +254,5 @@
         </div>
     </footer>
 </body>
+
 </html>
